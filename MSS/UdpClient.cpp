@@ -9,9 +9,10 @@ using namespace std;
 class UdpClient {
 private:
     SOCKET sock;
-    struct sockaddr_in server_addr;
-    struct sockaddr_in client_addr;
-    char buffer[1024] = { 0 }; // 버퍼 초기화
+    sockaddr_in server_addr;
+    sockaddr_in client_addr;
+    int server_addr_len;
+    char buffer[1024] = { 0, }; // 버퍼 초기화
 
 public:
     UdpClient(const string& ip, int client_port, int server_port) {
@@ -42,6 +43,7 @@ public:
         // 서버와 연결
         server_addr.sin_family = AF_INET; // ipv4 사용
         server_addr.sin_port = htons(server_port); // 서버포트 지정
+        server_addr_len = sizeof(server_addr);
         if (inet_addr(ip.c_str()) <= 0){
         // if (inet_pton(AF_INET, ip.c_str(), &server_addr.sin_addr) <= 0) {
             cout << "invalid address" << endl;
@@ -62,10 +64,7 @@ public:
 
     string recv() {
         ZeroMemory(buffer, 1024);
-        int len;
-        struct sockaddr_in addr;
-        int addr_len = sizeof(addr);
-        len = recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr*)&addr, &addr_len);
+        int len = recvfrom(sock, buffer, sizeof(buffer), 0, (sockaddr*)&server_addr, &server_addr_len);
         if (len == SOCKET_ERROR) {
             cout << "receive failed: " << WSAGetLastError() << endl;
         }
