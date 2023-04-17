@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Collections.ObjectModel;
 namespace WpfApp
 {
     /// <summary>
@@ -20,15 +20,37 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Ellipse _firstDot;
+        private Ellipse _secondDot;
         private bool startLoadButtonClicked = false;
+        public ObservableCollection<PathGeometry> Lines { get; set; }
 
         public MainWindow()
         {
 
             InitializeComponent();
+            Lines = new ObservableCollection<PathGeometry>();
+            DrawGrid(20);
+
+            DataContext = this;
 
         }
+        private void DrawGrid(int gridSize)
+        {
+            for (int x = 0; x <= Map.Width; x += gridSize)
+            {
+                var xLine = new PathGeometry();
+                xLine.Figures.Add(new PathFigure(new Point(x, 0), new[] { new LineSegment(new Point(x, Map.Height), true) }, false));
+                Lines.Add(xLine);
+            }
 
+            for (int y = 0; y <= Map.Height; y += gridSize)
+            {
+                var yLine = new PathGeometry();
+                yLine.Figures.Add(new PathFigure(new Point(0, y), new[] { new LineSegment(new Point(Map.Width, y), true) }, false));
+                Lines.Add(yLine);
+            }
+        }
         private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = sender as TextBox;
@@ -80,6 +102,22 @@ namespace WpfApp
                 endxpos.Text = $"{x}";
                 endypos.Text = $"{y}";
             }
+
+            // 점을 그리는 코드를 추가합니다.
+            int dotSize = 5; // 점의 크기
+            SolidColorBrush dotColor = Brushes.Yellow; // 점의 색상
+
+            Ellipse dot = new Ellipse
+            {
+                Width = dotSize,
+                Height = dotSize,
+                Fill = dotColor,
+                Margin = new Thickness(x - (dotSize / 2), y - (dotSize / 2), 0, 0) // 점의 중심이 클릭한 위치가 되도록 조정
+            };
+
+            Map.Children.Add(dot); // Canvas에 점 추가
+
+
         }
 
         private void startypos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -120,8 +158,31 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
+            if (double.TryParse(startxpos.Text, out double startX) &&
+                double.TryParse(startypos.Text, out double startY) &&
+                double.TryParse(endxpos.Text, out double endX) &&
+                double.TryParse(endypos.Text, out double endY))
+            {
+                // 선을 그리는 코드를 추가합니다.
+                var line = new Line
+                {
+                    X1 = startX,
+                    Y1 = startY,
+                    X2 = endX,
+                    Y2 = endY,
+                    Stroke = Brushes.Orange,
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 2, 2 } // 점선을 만들기 위한 코드입니다.
+                };
 
+                Map.Children.Add(line); // Canvas에 선 추가
+            }
+            else
+            {
+                MessageBox.Show("유효한 좌표 값을 입력하세요.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void end_load_click(object sender, RoutedEventArgs e)
         {
