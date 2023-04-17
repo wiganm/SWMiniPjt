@@ -1,4 +1,5 @@
 #pragma once
+#define DISTDIVIDE 5000
 
 struct AtsScenarioMsg {
 	int MessageID = 1501;
