@@ -7,20 +7,44 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="#757575" Margin="0,0,-258.4,-30">
+<<<<<<< HEAD
         
+=======
+>>>>>>> feature/GUI
 
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="311" Margin="0,139,0,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
 
         <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="118" Margin="10,170,0,0" Stroke="Black" VerticalAlignment="Top" Width="227"/>
 
+<<<<<<< HEAD
         <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="149" Margin="10,0,0,8" Stroke="Black" VerticalAlignment="Bottom" Width="227"/>
+=======
+        <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="149" Margin="10,293,0,8" Stroke="Black" VerticalAlignment="Center" Width="227"/>
+>>>>>>> feature/GUI
 
         <TextBox x:Name="startxpos" HorizontalAlignment="Left" Height="22" Margin="56,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="InputTextBox_TextChanged" MouseLeftButtonDown="startxpos_MouseLeftButtonDown"/>
         <Button x:Name="confirm" Content="제출" HorizontalAlignment="Left" Margin="88,421,0,0" VerticalAlignment="Top" Width="75" Click="confirm_scenario_click"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="56,333,0,0"><Run Text="X좌표"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="138,333,0,0"/>
+<<<<<<< HEAD
         <Canvas x:Name="Map" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="508" Margin="255,63,0,0" Background="#FFEBE6E6"  MouseLeftButtonDown="Map_MouseLeftButtonDown" />
         
+=======
+        <Canvas x:Name="Map" HorizontalAlignment="Left" Height="377" VerticalAlignment="Top" Width="508" Margin="255,63,0,0" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown">
+            <ItemsControl ItemsSource="{Binding Lines}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Stroke="Black" StrokeThickness="1" Data="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Canvas>
+>>>>>>> feature/GUI
         <TextBlock HorizontalAlignment="Left" Height="18" Margin="16,300,0,0" TextWrapping="Wrap" Text="공중위협 좌표" VerticalAlignment="Top" Width="91"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="56,381,0,0"><Run Text="X좌표"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="138,381,0,0"/>
