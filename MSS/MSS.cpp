@@ -17,3 +17,22 @@ class MssPositionDeliverer {
 void MssPositionDeliverer::SendMssPosition(double MssPositionX, double MssPositionY) {
 	return 0;
 }
+
+class MssSimulator {
+public:
+	double MssPositionX;
+	double MssPositionY;
+	int SimulationState;
+	void Start();
+	void Stop();
+	void Move();
+	void UpdateMssPosition();
+	void UpdateSimulationState();
+};
+
+void MssSimulator::Move(double vectorX, double vectorY) {
+	//double tempX = MssPositionX;
+	//double tempY = MssPositionY;
+	MssPositionX += vectorX;
+	MssPositionY += vectorY;
+}
