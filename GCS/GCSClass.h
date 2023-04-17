@@ -14,3 +14,10 @@ private:
 	AtsScenarioMsg atsScenarioMsg;
 	MssScenarioMsg mssScenarioMsg;
 };
+
+class MissileCalculator { // 미사일 방향벡터 게산
+public:
+	MssOpCommandMsg SetAndGetMssOp(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool Launch);
+private:
+	MssOpCommandMsg mssOpCommandMsg;
+};
