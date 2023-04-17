@@ -20,9 +20,13 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool startLoadButtonClicked = false;
+
         public MainWindow()
         {
+
             InitializeComponent();
+
         }
 
         private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,13 +69,66 @@ namespace WpfApp
             double x = cursorPosition.X;
             double y = cursorPosition.Y;
 
-            // 예를 들어, 좌표를 출력합니다.
-            Console.WriteLine($"Cursor coordinates: X={x}, Y={y}");
-            startxpos.Text = $"{x}";
-            startypos.Text = $"{y}";
+
+            if (!startLoadButtonClicked)
+            {
+                startxpos.Text = $"{x}";
+                startypos.Text = $"{y}";
+            }
+            else
+            {
+                endxpos.Text = $"{x}";
+                endypos.Text = $"{y}";
+            }
         }
 
         private void startypos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void start_load_click(object sender, RoutedEventArgs e)
+        {
+            startLoadButtonClicked = true;
+        }
+
+
+        private void confirm_scenario_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void end_load_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
