@@ -11,10 +11,26 @@ void MessageHandler::Listen()
 {
 	while (true)
 	{
-		int a;
+		int messageId;
 		const char* temp = udpServer->recv();
-		memcpy(&a, temp, 4);
-		cout << a << endl;
+		memcpy(&messageId, temp, 4);
+		
+		switch (messageId)
+		{
+		case 3110: // 미사일 상태 메시지
+			// 구현 부분
+			break;
+		case 3120: // 미사일 포지션 메시지
+			// 구현 부분
+			break;
+		case 5101: // 공중위협 상태 메시지
+			// 구현 부분
+			break;
+		case 5110: // 공중위협 포지션 메시지
+			// 구현 부분
+			break;
+		}
+
 	}
 }
 
