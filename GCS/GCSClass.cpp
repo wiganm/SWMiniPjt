@@ -85,3 +85,25 @@ bool Warning::LaunchOk(double mssX, double mssY, double atsX, double atsY) {
 	else
 		return false;
 }
+
+class OperationControl {
+public:
+	void SetMssOpCommandMsg(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool launch);
+	void LaunchMss();
+private:
+	MssOpCommandMsg mssOpCommandMsg;
+	MissileCalculator mssCalculator;
+};
+
+void OperationControl::SetMssOpCommandMsg(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool launch) {
+	mssOpCommandMsg = mssCalculator.SetAndGetMssOp(mssPosX, mssPosY, atsPosX, atsPosY, launch);
+	if (launch) {
+		LaunchMss(); // 미사일 발사
+		mssOpCommandMsg.Launch = false;
+	}
+
+}
+
+void OperationControl::LaunchMss() { // 구현해야함
+	//
+}

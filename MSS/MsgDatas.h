@@ -3,8 +3,7 @@
 #define DISTDIVIDE 5000
 
 struct AtsScenarioMsg {
-	int MessageID = 1501;
-	int MessageSize = sizeof(AtsScenarioMsg);
+
 	double  AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;

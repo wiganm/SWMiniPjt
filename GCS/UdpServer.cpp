@@ -2,13 +2,13 @@
 #include <string>
 #include <winsock2.h>
 #include <WS2tcpip.h>
-#include <udpclient.h>
+#include "UdpServer.h"
 #pragma comment(lib, "ws2_32.lib")
 
 using namespace std;
 
 
-UdpClient::UdpClient(const string ip, int client_port, int server_port) {
+UdpServer::UdpServer(const string ip, int server_port) {
     // winsock 초기화
     WSADATA wsa_data;
     int result = WSAStartup(MAKEWORD(2, 2), &wsa_data);
@@ -24,40 +24,32 @@ UdpClient::UdpClient(const string ip, int client_port, int server_port) {
     }
 
     // 클라이언트 포트 지정
-    client_addr.sin_family = AF_INET; // ipv4 사용
-    client_addr.sin_addr.s_addr = htonl(INADDR_ANY); // 허용 ip
-    client_addr.sin_port = htons(client_port); // 클라이언트 지정포트
-    if (bind(sock, (struct sockaddr*)&client_addr, sizeof(client_addr)) == SOCKET_ERROR) {
+    server_addr.sin_family = AF_INET; // ipv4 사용
+    server_addr.sin_addr.s_addr = htonl(INADDR_ANY); // 허용 ip
+    server_addr.sin_port = htons(server_port); //  지정포트
+    if (bind(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
         std::cerr << "bind failed: " << WSAGetLastError() << "\n";
         closesocket(sock);
         WSACleanup();
     }
 
-    // 서버와 연결
-    server_addr.sin_family = AF_INET; // ipv4 사용
-    server_addr.sin_port = htons(server_port); // 서버포트 지정
-    server_addr_len = sizeof(server_addr);
-    //if (inet_addr(ip.c_str()) <= 0) {
-    if (inet_pton(AF_INET, ip.c_str(), &server_addr.sin_addr) <= 0) {
-        cout << "invalid address" << endl;
-        closesocket(sock);
-        WSACleanup();
-    }
+    cout << "test" << endl;
 }
 
-UdpClient::~UdpClient() {
+UdpServer::~UdpServer() {
     closesocket(sock);
     WSACleanup();
 }
 
-void UdpClient::send(const char* message) {
+void UdpServer::send(const char* message) {
     sendto(sock, message, sizeof(message), 0,
         (const struct sockaddr*)&server_addr, sizeof(server_addr));
 }
 
-char* UdpClient::recv() {
+char* UdpServer::recv() {
+    int clientlen = sizeof(clientaddr);
     ZeroMemory(buffer, 1024);
-    int len = recvfrom(sock, buffer, sizeof(buffer), 0, (sockaddr*)&server_addr, &server_addr_len);
+    int len = recvfrom(sock, buffer, sizeof(buffer), 0, (sockaddr*)&clientaddr, &clientlen);
     if (len == SOCKET_ERROR) {
         cout << "receive failed: " << WSAGetLastError() << endl;
     }
