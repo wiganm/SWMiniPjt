@@ -2,3 +2,5 @@
 WpfApp/obj/
 Debug/
 WpfApp/bin/Debug
+ATS/GCS.cpp
+ATS/Temp_ATS.cpp

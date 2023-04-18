@@ -1,13 +1,17 @@
 #pragma once
+#include "MsgDatas.h"
 
 class AtsSimulation {
 public:
-	bool Start(AtsScenarioMsg* atsScenarioMsg);
-	bool Stop();
-	void UpdateAtsPostion(AtsPositionMsg* atsPositionMsg, double initX, double initY, double velocity);
-	void UpdateAtsState();
+	void Start(AtsScenarioMsg* atsScenarioMsg);
+	void Stop();
+	// void Stop(AtsScenarioMsg *atsScenarioMsg, AtsPositionMsg *atsPositionMsg, InterceptMsg *interceptMsg);
+	void UpdateAtsPostion(AtsPositionMsg* atsPositionMsg);
 private:
-	int period;
-	double slope;
-	double interceptY;
+	int time;
+	double startX;
+	double startY;
+	double velocity;
+	double unitVectorX;
+	double unitVectorY;
 };

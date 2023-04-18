@@ -1,5 +1,5 @@
-#pragma once
 #define DISTDIVIDE 5000
+#pragma once
 
 struct AtsScenarioMsg {
 	int MessageID = 1501;
@@ -7,25 +7,25 @@ struct AtsScenarioMsg {
 	double  AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
-	int atsType; // 0 : 오류 1 : 탄도탄 2 : 항공기
+	int atsType; // 0 : 오류, 1 : 탄도탄, 2 : 항공기
 };
 
 struct AtsOpCommandMsg {
 	int MessageID = 1510;
 	int MessageSize = sizeof(AtsOpCommandMsg);
-	bool AstCommand;
+	bool AstCommand = 0; // 0: 대기 및 종료, 1 : 동작
 };
 
 struct InterceptMsg {
-	int MessageID = 1520; // 1520 OR 1320
+	int MessageID = 1520; // 1520
 	int MessageSize = sizeof(InterceptMsg);
-	bool  SuccessDef;
+	bool  SuccessDef = 0; // 0: 요격 실패 및 진행 중, 1: 요격 성공
 };
 
 struct AtsStateMsg {
 	int MessageID = 5101;
 	int MessageSize = sizeof(AtsStateMsg);
-	bool AstState;
+	bool AstState =  0; // 0: 대기 및 종료, 1: 기동 중
 };
 
 struct AtsPositionMsg {

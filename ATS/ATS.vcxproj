@@ -151,12 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ATS.h" />
+    <ClInclude Include="AtsSimulation.h" />
+    <ClInclude Include="MessageHandler.h" />
     <ClInclude Include="MsgDatas.h" />
+    <ClInclude Include="UdpClient.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Temp_ATS.cpp" />
-    <ClCompile Include="ATS.cpp" />
+    <ClCompile Include="AtsSimulation.cpp" />
+    <ClCompile Include="MessageHandler.cpp" />
+    <ClCompile Include="UdpClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

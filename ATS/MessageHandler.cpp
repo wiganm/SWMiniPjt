@@ -1,7 +1,5 @@
 #include <thread>
 #include <iostream>
-#include "MsgDatas.h"
-#include "UdpClient.h"
 #include "MessageHandler.h"
 
 using namespace std;
@@ -17,65 +15,61 @@ void MessageHandler::Listen()
 
 		switch (messageId)
 		{
-		case 1501: // 공중위협 시나리오 메시지 > 
-			
+		case 1501: // 공중위협 시나리오 메시지
+			memcpy(&atsScenarioMsg, temp, sizeof(AtsScenarioMsg));
 			break;
 
 		case 1510: // 공중위협 기동 명령 메시지
-			// 구현 부분
+			memcpy(&atsOpCommandMsg, temp, sizeof(AtsOpCommandMsg));
 			break;
 
-		case 1520: // 
-			// 구현 부분
+		case 1520: // 요격 이벤트
+			memcpy(&interceptMsg, temp, sizeof(InterceptMsg));
 			break;
 		}
-
+		if (atsStateMsg.AstState != atsOpCommandMsg.AstCommand) { // 기동 명령이 들어온 경우(UpdateAtsPostion 역할)
+			if (atsOpCommandMsg.AstCommand) {
+				atsSimulation.Start(&atsScenarioMsg);
+			}
+			else {
+				//atsSimulation.Stop(&atsScenarioMsg, &atsPositionMsg, &interceptMsg);
+			}
+			atsStateMsg.AstState = atsOpCommandMsg.AstCommand;
+			SendAtsState();
+		}
+		else{ // 기동 명령이 변화가 없는 경우
+			if ((atsOpCommandMsg.AstCommand) && (!interceptMsg.SuccessDef)) { // 정상적으로 기동해야 하는 경우(기동명령 & 요격중)
+				atsSimulation.UpdateAtsPostion(&atsPositionMsg);
+				SendAtsPosition();
+				
+			}
+			else { // 요격 성공 or 기동 명령 없는 경우
+				//atsSimulation.Stop(&atsScenarioMsg, &atsPositionMsg, &interceptMsg);
+				//continue;
+			}
+		}
 	}
 }
 
-/*
-	if (state == 1501) { //시나리오 입력
-		memcpy(&atsScenarioMsg, recv_buf, sizeof(atsScenarioMsg));
-	}
-	else if (state == 1510) { // 공중위협 명령(기동 시작, 종료)
-		memcpy(&atsOpCommandMsg, recv_buf, sizeof(atsOpCommandMsg));
-	}
-	else if (state == 1520) { // 요격이벤트 (운용통제기->공중위협모의기)
-		memcpy(&interceptMsg, recv_buf, sizeof(interceptMsg));
-	}
-*/
-
-MessageHandler::MessageHandler()
-{
+MessageHandler::MessageHandler(){
 	const string ip = "127.0.0.1";
 	int client_port = 8888;
 	int server_port = 4444;
 	udpClient = new UdpClient(ip, client_port, server_port);
 }
 
-void MessageHandler::ListenStart()
-{
+void MessageHandler::ListenStart(){
 	thread t(&MessageHandler::Listen, this);
 	t.detach();
 }
 
-void MessageHandler::SendAtsPosition(double x, double y)
-{
+void MessageHandler::SendAtsPosition(){
 	char buf[1024] = { 0, };
-	AtsPositionMsg pos;
-	pos.X_AstLoc = x;
-	pos.Y_AstLoc = y;
-
-	memcpy(buf, &pos, sizeof(pos));
-
+	memcpy(buf, &atsPositionMsg, sizeof(atsPositionMsg));
 	udpClient->send(buf);
 }
-void MessageHandler::SendAtsState()
-{
+void MessageHandler::SendAtsState(){ // AtsSimulation::UpdateAtsState()는 생략
 	char buf[1024] = { 0, };
-	MssPositionMsg pos;
-
-	memcpy(buf, &pos, sizeof(pos));
-
+	memcpy(buf, &atsStateMsg, sizeof(atsStateMsg));
 	udpClient->send(buf);
 }
