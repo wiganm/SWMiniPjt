@@ -27,8 +27,18 @@ namespace WpfApp
         public double endposy;
         public double posx;
         public double posy;
+        public double x, y;
+        int[][] posArray = new int[3][];
+        //posArray[0] = new int[2];
+        //posArray[1] = new int[2];
+        //posArray[2] = new int[2];
+        // 점을 저장할 Dictionary 생성
+        //private Dictionary<string, Ellipse> dots = new Dictionary<string, Ellipse>();
+        private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
+        private bool posLoadButtonClicked = false;
+        
         public ObservableCollection<PathGeometry> Lines { get; set; }
 
         public MainWindow()
@@ -109,60 +119,83 @@ namespace WpfApp
         {
 
         }
+        private Ellipse AddDot(int dotSize, double x, double y, Color color)
+        {
+            SolidColorBrush dotColor = new SolidColorBrush(color);
 
+            Ellipse dot = new Ellipse
+            {
+                Width = dotSize,
+                Height = dotSize,
+                Fill = dotColor,
+                Margin = new Thickness(x - (dotSize / 2), y - (dotSize / 2), 0, 0)
+            };
+
+            // 점을 List에 추가
+            dots.Add(dot);
+
+            Map_.Children.Add(dot);
+
+            return dot;
+        }
+
+        private void RemoveDot(Ellipse dot)
+        {
+            if (dots.Contains(dot))
+            {
+                Map_.Children.Remove(dot);
+                dots.Remove(dot);
+            }
+        }
         private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Canvas에서 커서의 현재 위치를 가져옵니다.
+            
             Point cursorPosition = e.GetPosition(Map_);
 
+           
             // 위치의 X와 Y 좌표를 사용하여 작업을 수행할 수 있습니다.
 
             int dotSize = 5; // 점의 크기
 
+            x = cursorPosition.X;
+            y = cursorPosition.Y;
 
-
-            if (!startLoadButtonClicked)
+            if (!posLoadButtonClicked)
             {
 
-                // 점을 그리는 코드를 추가합니다.
-                startposx = cursorPosition.X;
-                startposy = cursorPosition.Y;
-                startxpos.Text = $"{startposx}";
-                startypos.Text = $"{startposy}";
+                AddDot(dotSize, x, y, Colors.DarkBlue);
+                posx = cursorPosition.X;
+                posy = cursorPosition.Y;
+                xpos.Text = $"{posx}";
+                ypos.Text = $"{posy}";
+                int scope = 100;
+                AddDot(scope, x, y, Color.FromArgb(128, 135, 206, 250));
 
-                SolidColorBrush dotColor = Brushes.Yellow; // 점의 색상
-
-                Ellipse dotstart = new Ellipse
-                {
-                    Width = dotSize,
-                    Height = dotSize,
-                    Fill = dotColor,
-                    Margin = new Thickness(startposx - (dotSize / 2), startposy - (dotSize / 2), 0, 0) // 점의 중심이 클릭한 위치가 되도록 조정
-                };
-
-                Map_.Children.Add(dotstart); // Canvas에 점 추가
             }
-            else if(!endLoadButtonClicked)
+            else
             {
-                endposx = cursorPosition.X;
-                endposy = cursorPosition.Y;
-                endxpos.Text = $"{endposx}";
-                endypos.Text = $"{endposy}";
-
-                SolidColorBrush dotColor = Brushes.Yellow; // 점의 색상
-
-                Ellipse dotend = new Ellipse
+                if (!startLoadButtonClicked)
                 {
-                    Width = dotSize,
-                    Height = dotSize,
-                    Fill = dotColor,
-                    Margin = new Thickness(endposx - (dotSize / 2), endposy - (dotSize / 2), 0, 0) // 점의 중심이 클릭한 위치가 되도록 조정
-                };
+                    AddDot(dotSize, x, y, Colors.Yellow);
+                    startposx = cursorPosition.X;
+                    startposy = cursorPosition.Y;
+                    startxpos.Text = $"{startposx}";
+                    startypos.Text = $"{startposy}";
+                    // 점을 그리는 코드를 추가합니다.
 
-                Map_.Children.Add(dotend); // Canvas에 점 추가
+                }
+                else
+                {
+                    AddDot(dotSize, x, y, Colors.Yellow);
+                    endposx = cursorPosition.X;
+                    endposy = cursorPosition.Y;
+                    endxpos.Text = $"{endposx}";
+                    endypos.Text = $"{endposy}";
+
+                }
             }
-
-
+    
 
 
 
@@ -202,6 +235,8 @@ namespace WpfApp
         private void start_load_click(object sender, RoutedEventArgs e)
         {
             startLoadButtonClicked = true;
+            startxpos.Text = $"{x}";
+            startypos.Text = $"{y}";
         }
         private void end_load_click(object sender, RoutedEventArgs e)
         {
@@ -275,38 +310,8 @@ namespace WpfApp
 
         private void pos_load_click(object sender, RoutedEventArgs e)
         {
-            // xpos와 ypos 텍스트 박스에서 입력한 값을 double 형식으로 변환하려고 시도
-            if (double.TryParse(xpos.Text, out double x) && double.TryParse(ypos.Text, out double y))
-            {
-                // 진한 파란색 점 그리기
-                int dotSize = 5; // 점의 크기 설정
-                SolidColorBrush dotColor = Brushes.DarkBlue; // 점의 색상을 진한 파란색으로 설정
-                Ellipse dot = new Ellipse // 새로운 원형 도형(점) 생성
-                {
-                    Width = dotSize,
-                    Height = dotSize,
-                    Fill = dotColor,
-                    Margin = new Thickness(x - (dotSize / 2), y - (dotSize / 2), 0, 0) // 점의 중심이 입력한 좌표가 되도록 위치 조정
-                };
-                Map_.Children.Add(dot); // Canvas에 점 추가
-
-                // 연한 파란색 원 그리기
-                int circleRadius = 50; // 원의 반지름 설정
-                SolidColorBrush circleColor = new SolidColorBrush(Color.FromArgb(128, 135, 206, 250)); // 연한 파란색, 반투명 색상으로 설정
-                Ellipse circle = new Ellipse // 새로운 원형 도형(원) 생성
-                {
-                    Width = circleRadius * 2, // 원의 가로 크기 설정
-                    Height = circleRadius * 2, // 원의 세로 크기 설정
-                    Fill = circleColor, // 원의 색상 설정
-                    Margin = new Thickness(x - circleRadius, y - circleRadius, 0, 0) // 원의 중심이 입력한 좌표가 되도록 위치 조정
-                };
-                Map_.Children.Add(circle); // Canvas에 원 추가
-            }
-            else
-            {
-                // 좌표 값을 변환하지 못한 경우 경고 메시지 표시
-                MessageBox.Show("유효한 좌표 값을 입력하세요.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            posLoadButtonClicked = true;
+           
         }
     }
 }
