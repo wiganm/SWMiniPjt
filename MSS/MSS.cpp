@@ -7,7 +7,7 @@ class MssPositionDeliverer {
 };
 
 void MssPositionDeliverer::SendMssPosition(double MssPositionX, double MssPositionY) {
-	//???
+
 }
 
 class MssSimulator {
@@ -20,6 +20,7 @@ public:
 	double MssPositionX;
 	double MssPositionY;
 	int SimulationState;
+
 private:
 	void Initialize(double, double);
 	void Start(int);
@@ -41,7 +42,7 @@ void MssSimulator::Initialize(double MssStartX, double MssStartY) {
 void MssSimulator::Start(int SimulationState) {
 	//Initialize();
 	while (SimulationState == 1) {
-		Move();
+		Move(3.3,3.2);
 	}
 }
 
