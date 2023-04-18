@@ -7,7 +7,11 @@ class MssPositionDeliverer {
 };
 
 void MssPositionDeliverer::SendMssPosition(double MssPositionX, double MssPositionY) {
+<<<<<<< HEAD
 	//???
+=======
+	
+>>>>>>> feature/MessageHandler
 }
 
 class MssSimulator {
@@ -20,11 +24,17 @@ public:
 	double MssPositionX;
 	double MssPositionY;
 	int SimulationState;
+<<<<<<< HEAD
 private:
 	void Initialize(double, double);
 	void Start(int);
 	void Stop(int);
 	void Move(double, double);
+=======
+	void Start();
+	void Stop();
+	void Move(double vectorX, double vectorY);
+>>>>>>> feature/MessageHandler
 	void UpdateMssPosition();
 	void UpdateSimulationState();
 };
