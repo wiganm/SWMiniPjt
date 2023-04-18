@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
+using System.Windows.Media;
+
 namespace WpfApp
 {
     /// <summary>
@@ -36,6 +38,8 @@ namespace WpfApp
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
         private bool posLoadButtonClicked = false;
+
+        MediaPlayer bbyok = new MediaPlayer();
         
         public ObservableCollection<PathGeometry> Lines { get; set; }
 
@@ -304,6 +308,12 @@ namespace WpfApp
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ShootBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
+            bbyok.Play();
         }
 
         private void pos_load_click(object sender, RoutedEventArgs e)
