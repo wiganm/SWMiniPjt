@@ -1,12 +1,2 @@
-﻿  main.cpp
-  MessageHandler.cpp
-  MSS.cpp
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(18,2): error C2562: 'MssPositionDeliverer::SendMssPosition': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(17): message : 'MssPositionDeliverer::SendMssPosition' 선언을 참조하십시오.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(33,57): error C2511: 'void MssSimulator::Move(double,double)': 오버로드된 멤버 함수가 'MssSimulator'에 없습니다.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(21): message : 'MssSimulator' 선언을 참조하십시오.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(36,2): error C2597: 비정적 멤버 'MssSimulator::MssPositionX'에 대한 참조가 잘못되었습니다.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(23): message : 'MssSimulator::MssPositionX' 선언을 참조하십시오.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(37,2): error C2597: 비정적 멤버 'MssSimulator::MssPositionY'에 대한 참조가 잘못되었습니다.
-C:\Users\User\source\repos\MiniProject\MSS\MSS.cpp(24): message : 'MssSimulator::MssPositionY' 선언을 참조하십시오.
-  코드를 생성하고 있습니다...
+﻿  MessageHandler.cpp
+  MSS.vcxproj -> C:\Users\User\source\repos\MiniProject\Debug\MSS.exe

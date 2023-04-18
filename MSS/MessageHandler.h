@@ -1,6 +1,7 @@
 #include "UdpClient.h"
 #pragma once
 
+
 class MessageHandler
 {
 private:
@@ -11,7 +12,7 @@ public:
 	MessageHandler();
 	//~MessageHandler();
 	void ListenStart();
-	//void SendMssPosition();
+	void SendMssPosition(double x, double y);
 	//void SendMssState();
 
 };
