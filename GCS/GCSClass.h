@@ -27,5 +27,6 @@ private:
 };
 
 class Warning {
-	bool LaunchOk(double mssX, double mssY, double atsX, double atsY);
+public:
+	bool LaunchOk(double mssStartX, double mssStartY, double atsX, double atsY);
 };

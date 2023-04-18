@@ -79,8 +79,8 @@ void MissileCalculator::SendSuccessMsg() {
 /// <summary>
 /// Warning
 /// </summary>
-bool Warning::LaunchOk(double mssX, double mssY, double atsX, double atsY) {
-	double distance = sqrt(pow(atsX - mssX, 2) + pow(atsY - mssY, 2));
+bool Warning::LaunchOk(double mssStartX, double mssStartY, double atsX, double atsY) {
+	double distance = sqrt(pow(atsX - mssStartX, 2) + pow(atsY - mssStartY, 2));
 	if (distance <= 50)
 		return true;
 	else
@@ -99,8 +99,8 @@ private:
 void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch) {
 	
 	if (launch) {
-		double distance = sqrt(pow(atsPosX - mssStartX, 2) + pow(mssStartY - atsPosY, 2));
-		if (distance <= 50) {
+		Warning warning;
+		if (warning.LaunchOk(mssStartX, mssStartY, atsPosX, atsPosY)) {
 			LaunchMss(); // 미사일 발사
 			mssOpCommandMsg.Launch = false;
 		}
