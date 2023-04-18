@@ -15,7 +15,7 @@
         <Grid Margin="747,211,32,35.8" Grid.RowSpan="2">
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="150" Margin="-14,0,-18.4,0" Stroke="Black" VerticalAlignment="Top" Width="155"/>
 
-            <Button Content="발사" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="17,106,0,0" Height="38"/>
+            <Button x:Name="ShootBtn" Content="발사" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="17,106,0,0" Height="38" Click="ShootBtn_Click"/>
             <TextBox x:Name="xpos" HorizontalAlignment="Left" Height="16" Margin="-5,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="-2,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="X좌표"/><LineBreak/><Run/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="48,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
