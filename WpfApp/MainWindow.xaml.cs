@@ -20,8 +20,6 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Ellipse _firstDot;
-        private Ellipse _secondDot;
         private bool startLoadButtonClicked = false;
         public ObservableCollection<PathGeometry> Lines { get; set; }
 
@@ -37,17 +35,17 @@ namespace WpfApp
         }
         private void DrawGrid(int gridSize)
         {
-            for (int x = 0; x <= Map.Width; x += gridSize)
+            for (int x = 0; x <= Map_.Width; x += gridSize)
             {
                 var xLine = new PathGeometry();
-                xLine.Figures.Add(new PathFigure(new Point(x, 0), new[] { new LineSegment(new Point(x, Map.Height), true) }, false));
+                xLine.Figures.Add(new PathFigure(new Point(x, 0), new[] { new LineSegment(new Point(x, Map_.Height), true) }, false));
                 Lines.Add(xLine);
             }
 
-            for (int y = 0; y <= Map.Height; y += gridSize)
+            for (int y = 0; y <= Map_.Height; y += gridSize)
             {
                 var yLine = new PathGeometry();
-                yLine.Figures.Add(new PathFigure(new Point(0, y), new[] { new LineSegment(new Point(Map.Width, y), true) }, false));
+                yLine.Figures.Add(new PathFigure(new Point(0, y), new[] { new LineSegment(new Point(Map_.Width, y), true) }, false));
                 Lines.Add(yLine);
             }
         }
@@ -85,7 +83,7 @@ namespace WpfApp
         private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Canvas에서 커서의 현재 위치를 가져옵니다.
-            Point cursorPosition = e.GetPosition(Map);
+            Point cursorPosition = e.GetPosition(Map_);
 
             // 위치의 X와 Y 좌표를 사용하여 작업을 수행할 수 있습니다.
             double x = cursorPosition.X;
@@ -115,7 +113,7 @@ namespace WpfApp
                 Margin = new Thickness(x - (dotSize / 2), y - (dotSize / 2), 0, 0) // 점의 중심이 클릭한 위치가 되도록 조정
             };
 
-            Map.Children.Add(dot); // Canvas에 점 추가
+            Map_.Children.Add(dot); // Canvas에 점 추가
 
 
         }
@@ -175,7 +173,7 @@ namespace WpfApp
                     StrokeDashArray = new DoubleCollection() { 2, 2 } // 점선을 만들기 위한 코드입니다.
                 };
 
-                Map.Children.Add(line); // Canvas에 선 추가
+                Map_.Children.Add(line); // Canvas에 선 추가
             }
             else
             {
@@ -190,6 +188,16 @@ namespace WpfApp
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
         {
 
         }
