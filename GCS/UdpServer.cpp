@@ -23,7 +23,7 @@ UdpServer::UdpServer(const string ip, int server_port) {
         WSACleanup();
     }
 
-    // 클라이언트 포트 지정
+    // 서버 소켓 바인딩
     server_addr.sin_family = AF_INET; // ipv4 사용
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY); // 허용 ip
     server_addr.sin_port = htons(server_port); //  지정포트
@@ -33,7 +33,10 @@ UdpServer::UdpServer(const string ip, int server_port) {
         WSACleanup();
     }
 
-    cout << "test" << endl;
+    // 클라이언트 init
+    clientaddr.sin_family = AF_INET;
+    clientaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+
 }
 
 UdpServer::~UdpServer() {
@@ -41,7 +44,9 @@ UdpServer::~UdpServer() {
     WSACleanup();
 }
 
-void UdpServer::send(const char* message) {
+void UdpServer::send(int port, const char* message) {
+    clientaddr.sin_port = htons(port);
+
     sendto(sock, message, sizeof(message), 0,
         (const struct sockaddr*)&server_addr, sizeof(server_addr));
 }
