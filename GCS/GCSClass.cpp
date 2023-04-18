@@ -58,14 +58,26 @@ MssOpCommandMsg MissileCalculator::SetAndGetMssOp(double mssPosX, double mssPosY
 	return mssOpCommandMsg;
 }
 
+void MissileCalculator::SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist) {
+	double distance = sqrt(pow(atsPosX - mssPosX, 2) + pow(atsPosY - mssPosY, 2));
+	if (distance <= interDist) {
+		interceptMsg.SuccessDef = true;
+		SendSuccessMsg();
+	}
+	double destAtsDist = sqrt(pow(atsDestPosX - atsPosX, 2) + pow(atsDestPosY - atsPosY, 2));
+	if (destAtsDist <= 5) {
+		interceptMsg.SuccessDef = false;
+		SendSuccessMsg();
+	}
+}
+
+void MissileCalculator::SendSuccessMsg() {
+	// 통신 클래스에 전달 interceptMsg를
+}
 
 /// <summary>
 /// Warning
 /// </summary>
-class Warning {
-	bool LaunchOk(double mssX, double mssY, double atsX, double atsY);
-};
-
 bool Warning::LaunchOk(double mssX, double mssY, double atsX, double atsY) {
 	double distance = sqrt(pow(atsX - mssX, 2) + pow(atsY - mssY, 2));
 	if (distance <= 50)
