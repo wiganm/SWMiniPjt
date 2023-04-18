@@ -5,18 +5,19 @@
 
 using namespace std;
 
-class UdpClient
+class UdpServer
 {
 private:
     SOCKET sock;
     sockaddr_in server_addr;
-    sockaddr_in client_addr;
+    sockaddr_in clientaddr;
+
     int server_addr_len;
     char buffer[1024] = { 0, }; // 버퍼 초기화
 
 public:
-    UdpClient(const string ip, int client_port, int server_port);
-    ~UdpClient();
+    UdpServer(const string ip, int server_port);
+    ~UdpServer();
     void send(const char* message);
     char* recv();
 };
