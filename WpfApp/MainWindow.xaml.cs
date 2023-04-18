@@ -30,12 +30,10 @@ namespace WpfApp
         public double posx;
         public double posy;
         public double x, y;
-        int[][] posArray = new int[3][];
+        int[][] scenario = new int[8][];
         //posArray[0] = new int[2];
         //posArray[1] = new int[2];
         //posArray[2] = new int[2];
-        // 점을 저장할 Dictionary 생성
-        //private Dictionary<string, Ellipse> dots = new Dictionary<string, Ellipse>();
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
