@@ -57,3 +57,19 @@ MssOpCommandMsg MissileCalculator::SetAndGetMssOp(double mssPosX, double mssPosY
 
 	return mssOpCommandMsg;
 }
+
+
+/// <summary>
+/// Warning
+/// </summary>
+class Warning {
+	bool LaunchOk(double mssX, double mssY, double atsX, double atsY);
+};
+
+bool Warning::LaunchOk(double mssX, double mssY, double atsX, double atsY) {
+	double distance = sqrt(pow(atsX - mssX, 2) + pow(atsY - mssY, 2));
+	if (distance <= 50)
+		return true;
+	else
+		return false;
+}
