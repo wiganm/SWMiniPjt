@@ -1,9 +1,9 @@
 #pragma once
+#pragma once
 #define DISTDIVIDE 5000
 
 struct AtsScenarioMsg {
-	int MessageID = 1501;
-	int MessageSize = sizeof(AtsScenarioMsg);
+
 	double  AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
@@ -44,8 +44,13 @@ struct MssScenarioMsg {
 struct MssOpCommandMsg {
 	int MessageID = 1310;
 	int MessageSize = sizeof(MssOpCommandMsg);
-	double  XDir, YDir;
 	bool Launch;
+};
+
+struct MssDirectionMsg {
+	int MessageID = 1320;
+	int MessageSize = sizeof(MssOpCommandMsg);
+	double  XDir, YDir;
 };
 
 struct MssStateMsg {
