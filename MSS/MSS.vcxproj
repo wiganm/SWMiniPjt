@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MessageHandler.h" />
+    <ClInclude Include="MsgDatas.h" />
     <ClInclude Include="UdpClient.h" />
   </ItemGroup>
   <ItemGroup>

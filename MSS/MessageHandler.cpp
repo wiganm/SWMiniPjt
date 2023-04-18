@@ -2,6 +2,7 @@
 #include <thread>
 #include <iostream>
 #include <MessageHandler.h>
+#include "MsgDatas.h"
 
 using namespace std;
 
@@ -28,4 +29,16 @@ void MessageHandler::ListenStart()
 {
 	thread t(&MessageHandler::Listen, this);
 	t.detach();
+}
+
+void MessageHandler::SendMssPosition(double x, double y)
+{
+	char buf[1024] = { 0, };
+	MssPositionMsg pos;
+	pos.X_Pos = x;
+	pos.Y_Pos = y;
+
+	memcpy(buf, &pos, sizeof(pos));
+
+	udpClient->send(buf);
 }

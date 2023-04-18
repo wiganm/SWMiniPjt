@@ -1,2 +1,4 @@
 .vs/
 WpfApp/obj/
+Debug/
+WpfApp/bin/Debug
