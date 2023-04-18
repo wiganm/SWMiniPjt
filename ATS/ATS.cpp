@@ -1,191 +1,99 @@
-ï»¿// ATS.cpp : ì •ì  ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜ë¥¼ ì •ì˜í•©ë‹ˆë‹¤.
-
-#include "pch.h"
-#include "framework.h"
-#include "ATS.h"
+#include <string>
 #include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+
+#include "MsgDatas.h"
+#include "ATS.h"
 
 using namespace std;
 
-const int PORT = 1234;
-const int MAX_BUF_LEN = 100;
-const char* IP_ADDR = "127.0.0.1";
+/// <summary>
+/// UdpClient
+/// </summary>
+void UdpClient::Send(int socket) {
+	char send_buf[MAX_BUF_LEN];	
 
-struct AtsScenario { //ì‹œë‚˜ë¦¬ì˜¤ ìˆ˜ì‹  êµ¬ì¡°ì²´
-	int MessageID; // ë©”ì‹œì§€ ID : 1501
-	int MessageSize; // ë©”ì‹œì§€ ê¸¸ì´ : 52 byte
-	double AtsStartX; // ê³µì¤‘ìœ„í˜‘ ì‹œì‘ ìœ„ì¹˜(Xì¢Œí‘œ)
-	double AtsStartY; // ê³µì¤‘ìœ„í˜‘ ì‹œì‘ ìœ„ì¹˜(Yì¢Œí‘œ)
-	double AtsDestinationX; // ê³µì¤‘ìœ„í˜‘ ëª©ì  ìœ„ì¹˜(Xì¢Œí‘œ)
-	double AtsDestinationY; // ê³µì¤‘ìœ„í˜‘ ëª©ì  ìœ„ì¹˜(Yì¢Œí‘œ)
-	double AtsVelocity; // ê³µì¤‘ìœ„í˜‘ ì´ë™ ì†ë„ (Xì¢Œí‘œ)
-	int AtsType; // ê³µì¤‘ìœ„í˜‘ íƒ€ì…
-};
-
-struct AtsCommand { // ëª…ë ¹ ìˆ˜ì‹ 
-	int MessageID; // 1510
-	int MessageSize; // 9 byte
-	char Command; //
-};
-
-struct AtsState { // ìƒíƒœ ì—…ë°ì´íŠ¸
-	int MessageID; // 5101
-	int MessageSize; // 9 byte;
-	char State = 0; //0 : ëŒ€ê¸° ìƒíƒœ, 1: ëª¨ì˜ ì‹œì‘, 2: ëª¨ì˜ ì¢…ë£Œ, 3: ê¸°ë™ ì‹œì‘, 4: ê¸°ë™ ì¢…ë£Œ
-};
-
-struct AtsLocation { // ìœ„ì¹˜ ê³„ì‚°
-	int MessageID; // 5110
-	int MessageSize; // 24 byte;
-	double AtsLocX;
-	double AtsLocY;
-};
-
-class AtsSimulation {
-public:
-
-private:
-
-};
-
-class AtsMessageDeliver {
-public:
-
-private:
-
-};
-
-class MessageHandler {
-public :
-
-private :
-
-};
-
-class UdpClient { //í†µì‹ ì„ í†µí•´ ë°›ìŒ.
-public:
-	// ì†¡ì‹ ì¸¡ thread
-	void send_data(int sockfd) {
-		char buf[MAX_BUF_LEN];
-		while (1) {
-			if (atsState.State == 0) continue; //ì•„ì§ ëª¨ì˜ë„ ì‹œì‘í•˜ì§€ ì•Šì€ ë‹¨ê³„ë¡œ, ì•„ë¬´ ë™ì‘ ì•ˆí•¨.
-
-			else if (atsState.State == 1) { // ëª¨ì˜ ì‹œì‘ ëª…ë ¹
-				if (State != atsState.State) {
-					atsState = { 5101, 9, 1 };
-
-					memcpy(&atsState, buf, sizeof(atsState));
-					sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)nullptr, 0);
-				}
-			}
-
-			else if (atsState.State == 2) { // ëª¨ì˜ ì¢…ë£Œ ëª…ë ¹
-				if (State != atsState.State) {
-					atsState = { 5101, 9, 2 };
-
-					memcpy(&atsState, buf, sizeof(atsState));
-					sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)nullptr, 0);
-				}
-			}
-
-			else if (atsState.State == 3) { //ê¸°ë™ ì‹œì‘ ëª…ë ¹
-				if (State != atsState.State) { //ê¸°ë™ ì‹œì‘ í›„ ìš´ìš©í†µì œê¸°ì— ìƒíƒœ ì†¡ì‹ (ìµœì´ˆ 1íšŒ)
-					atsState = { 5101, 9, 3 };
-					Period = 0;
-					memcpy(&atsState, buf, sizeof(atsState));
-					sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)nullptr, 0);
-				}
-				else { // ê¸°ë™ ì‹œì‘ í›„ ì§€ì†ì ì¸ ìœ„ì¹˜ ì†¡ì‹ 
-					
-//[êµ¬í˜„ í•„ìš”] ì£¼ê¸°ì ìœ¼ë¡œ x, yì¢Œí‘œ ê³„ì‚° í›„ ì†¡ì‹ , period(í˜„ì¬ ì‹œì )ë¥¼ ì–´ë–»ê²Œ ì €ì¥í•˜ê³  ìˆì„ì§€
-
-					memcpy(&atsLocation, buf, sizeof(atsLocation));
-					sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)nullptr, 0);
-					Period++;
-				}
-			}
-
-			else if (atsState.State == 4) { //ê¸°ë™ ì¢…ë£Œ ëª…ë ¹
-				if (State != atsState.State) {
-					atsState = { 5101, 9, 4 };
-
-					memcpy(&atsState, buf, sizeof(atsState));
-					sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)nullptr, 0);
-					
-					/*ê³µì¤‘ìœ„í˜‘ ì‚­ì œ, ì‹œë‚˜ë¦¬ì˜¤ ì •ë³´ê°’ ì´ˆê¸°í™” ?*/
-				}
-			}
-			State = atsState.State;
+	if((state == 1510) && (state != pre_state)){ // ¸í·ÉÀ» ¼ö½ÅÇÑ »óÅÂ = ÇÑ ¹ø¸¸ ¼Û½Å(ÀÌÀü »óÅÂ != ÇöÀç »óÅÂ)
+		if (atsOpCommandMsg.AstCommand == 1) { // ±âµ¿ ½ÃÀÛ ¸í·É
+			atsStateMsg.AstState = atsSimulation.Start(&atsScenarioMsg);
+			memcpy(send_buf, &atsStateMsg, sizeof(atsStateMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+			pre_state = state;
 		}
 	}
-
-	void receive_data(int sockfd) {
-		struct sockaddr_in addr;
-		socklen_t addr_len = sizeof(addr);
-		char buf[MAX_BUF_LEN];
-		while (1) {
-			// ë°ì´í„° ë°›ê¸°
-			int len = recvfrom(sockfd, buf, MAX_BUF_LEN, 0, (struct sockaddr*)&addr, &addr_len); //ì†¡ì‹ ë°›ì€ bufê°€ 0ë‚˜ì˜¤ê¸° ì „ê¹Œì§€ ë³µì‚¬?
-			buf[len] = '\0'; // 0ì´ ë‚˜ì˜¤ê¸° ì‹œì‘í•œ ë¶€ë¶„ê¹Œì§€ì˜ ë©”ì‹œì§€ë§Œ ë‹¤ë£¸.
-
-			//ë©”ì‹œì§€ ID ì²˜ë¦¬
-			memcpy(&MessageID, buf, sizeof(int)); // ì´ˆê¸° IDë§Œ ì½ì–´ì„œ ë™ì‘ ê²°ì •
-
-			if (MessageID == 1501) { //ê³µì¤‘ìœ„í˜‘ ì‹œë‚˜ë¦¬ì˜¤ ì „ë‹¬ ë°›ìŒ
-				memcpy(&atsScenario, buf, sizeof(atsScenario));
-//[êµ¬í˜„ í•„ìš”] ì‹œë‚˜ë¦¬ì˜¤ ì„¤ì • íŒŒíŠ¸ êµ¬í˜„ í•„ìš” -> ì–´ë–¤ í•¨ìˆ˜ì—ì„œ í• ì§€, ì–´ë–»ê²Œ ì €ì¥í•˜ê³  ìˆì„ì§€
-				atsLocation = { 5110, 24, atsScenario.AtsStartX, atsScenario.AtsStartY};
-				atsState.State = 0;
-			}
-			else if (MessageID == 1510) { // ìš´ìš©í†µì œê¸°ì—ì„œ ëª…ë ¹
-				State = atsState.State; //ì´ì „ State ì €ì¥, Stateê°€ ë°”ë€Œë©´ ë©”ì‹œì§€ ì „íŒŒí•´ì•¼ í•˜ë¯€ë¡œ
-				memcpy(&atsState, buf, sizeof(atsState));
-			}
+	else if ((state == 1510) || (state == 1520) ) { //Áö¼ÓÀûÀÎ ¼Û½Å
+		if ((atsOpCommandMsg.AstCommand == 1) && (interceptMsg.SuccessDef == 0)) { // ±âµ¿ ½ÃÀÛ & ¿ä°İ ¹Ì¿Ï·á
+			atsSimulation.UpdateAtsPostion(&atsPositionMsg, atsScenarioMsg.AtsStartX, atsScenarioMsg.AtsStartY, atsScenarioMsg.Velocity);
+			memcpy(send_buf, &atsPositionMsg, sizeof(atsPositionMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+		}
+		else {
+			atsStateMsg.AstState = atsSimulation.Stop();
+			memcpy(send_buf, &atsStateMsg, sizeof(atsStateMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+			pre_state = state = 0;
 		}
 	}
-private:
-	AtsScenario atsScenario;
-	int MessageID;
-	AtsState atsState;
-	int State; 
-	AtsLocation atsLocation;
-	int Period;
-};
+}
 
+void UdpClient::Receive(int socket) {
+	
+	char recv_buf[MAX_BUF_LEN];
+	
 
-
-// TODO: ë¼ì´ë¸ŒëŸ¬ë¦¬ í•¨ìˆ˜ì˜ ì˜ˆì œì…ë‹ˆë‹¤.
-int main() {
-	//ì†Œì¼“ ì„¤ì •
-	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-	if (sockfd < 0) {
-		cerr << "Error: socket creation failed" << endl;
-		return -1;
-	}
-
-	//í¬íŠ¸ ì„¤ì •
+	// UDP Åë½Å - ¼ö½ÅÆÄÆ® ÄÚµå (¼öÁ¤ÇÊ¿ä)
 	struct sockaddr_in addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(PORT);
-	addr.sin_addr.s_addr = inet_addr(IP_ADDR);
+	socklen_t addr_len = sizeof(addr);
+	int len = recvfrom(socket, recv_buf, MAX_BUF_LEN, 0, (struct sockaddr*)&addr, &addr_len); //¼Û½Å¹ŞÀº buf°¡ 0³ª¿À±â Àü±îÁö º¹»ç?
+	recv_buf[len] = '\0'; // 0ÀÌ ³ª¿À±â ½ÃÀÛÇÑ ºÎºĞ±îÁöÀÇ ¸Ş½ÃÁö¸¸ ´Ù·ë.
 
-	if (bind(sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-		cerr << "Error: bind failed" << endl;
-		return -1;
+	memcpy(&state, recv_buf, sizeof(int)); // ¼ö½ÅÇÑ Åë½Å µ¥ÀÌÅÍ·ÎºÎÅÍ MessageID¸¸ ºĞ¸®
+
+	if (state == 1501) { //½Ã³ª¸®¿À ÀÔ·Â
+		memcpy(&atsScenarioMsg, recv_buf, sizeof(atsScenarioMsg));
 	}
+	else if (state == 1510) { // °øÁßÀ§Çù ¸í·É(±âµ¿ ½ÃÀÛ, Á¾·á)
+		memcpy(&atsOpCommandMsg, recv_buf, sizeof(atsOpCommandMsg));
+	}
+	else if (state == 1520) { // ¿ä°İÀÌº¥Æ® (¿î¿ëÅëÁ¦±â->°øÁßÀ§Çù¸ğÀÇ±â)
+		memcpy(&interceptMsg, recv_buf, sizeof(interceptMsg));
+	}
+}
 
-	// ì†¡ì‹ ì¸¡ thread ìƒì„± -> ê³„ì† ì†¡ì‹  ëŒ€ê¸°
-	thread send_thread(UdpClient::send_data, sockfd);
+/// <summary>
+/// MessaageHandler
+/// </summary>
+void MessaageHandler::MessageParser(int sockfd, int cur_state) {
+	while (1) {
+		// ¼ö½ÅÃø thread »ı¼º -> °è¼Ó ¼ö½Å ´ë±â
+		thread receive_thread(&UdpClient::Receive, sockfd);
+		// ¼Û½ÅÃø thread »ı¼º -> °è¼Ó ¼Û½Å ´ë±â
+		thread send_thread(&UdpClient::Send, sockfd);
+	};
+}
 
-	// ìˆ˜ì‹ ì¸¡ thread ìƒì„± -> ê³„ì† ìˆ˜ì‹  ëŒ€ê¸°
-	thread receive_thread(UdpClient::receive_data, sockfd);
+/// <summary>
+/// AtsSimulation
+/// </summary>
+bool AtsSimulation::Start(AtsScenarioMsg *atsScenarioMsg) { // if((interceptMsg.SuccessDef == 0)&&(atsOpCommandMsg.AstCommand == 1))
+	period = 0;
+	slope = (atsScenarioMsg->AtsDestiationY - atsScenarioMsg->AtsStartY) / (atsScenarioMsg->AtsDestiationX - atsScenarioMsg->AtsStartX);
+	interceptY = atsScenarioMsg->AtsStartY - slope * atsScenarioMsg->AtsStartX;
+	return 1;
+}
 
-
-	// thread ì¢…ë£Œ ëŒ€ê¸°
-	send_thread.join();
-	receive_thread.join();
-	close(sockfd);
-
+bool AtsSimulation::Stop() { // if((interceptMsg.SuccessDef == 1)||(atsOpCommandMsg.AstCommand == 0))
+	period = 0;
+	slope = 0;
+	interceptY = 0;
 	return 0;
+}
+
+void AtsSimulation::UpdateAtsPostion(AtsPositionMsg* atsPositionMsg, double initX, double initY, double velocity) { // if(atsStateMsg.AstState==1)
+	atsPositionMsg->X_AstLoc = initX + sqrt(1/((1*1)+(slope*slope)))*period*velocity;
+	atsPositionMsg->Y_AstLoc = initX + sqrt(slope / ((1 * 1) + (slope * slope))) * period * velocity;
+	period += 1;
 }
