@@ -7,6 +7,7 @@
 
 #include "MsgDatas.h"
 #include "GCSClass.h"
+#include "MessageHandler.h"
 
 using namespace std;
 
@@ -46,16 +47,16 @@ ScenarioSetting::~ScenarioSetting()
 /// <summary>
 /// MissileCalculator
 /// </summary>
-MssOpCommandMsg MissileCalculator::SetAndGetMssOp(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool launch) {
+MssDirectionMsg MissileCalculator::SetAndGetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY) {
 	double x = atsPosX - mssPosX;
 	double y = atsPosY - mssPosY;
 	double absize = sqrt(x*x + y*y);
 	
-	mssOpCommandMsg.XDir = x / absize;
-	mssOpCommandMsg.YDir = y / absize;
-	mssOpCommandMsg.Launch = launch;
+	mssDirectionMsg.XDir = x / absize;
+	mssDirectionMsg.YDir = y / absize;
+	//mssOpCommandMsg.Launch = launch;
 
-	return mssOpCommandMsg;
+	return mssDirectionMsg;
 }
 
 void MissileCalculator::SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist) {
@@ -88,18 +89,21 @@ bool Warning::LaunchOk(double mssX, double mssY, double atsX, double atsY) {
 
 class OperationControl {
 public:
-	void SetMssOpCommandMsg(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool launch);
+	void SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch);
 	void LaunchMss();
 private:
 	MssOpCommandMsg mssOpCommandMsg;
 	MissileCalculator mssCalculator;
 };
 
-void OperationControl::SetMssOpCommandMsg(double mssPosX, double mssPosY, double atsPosX, double atsPosY, bool launch) {
-	mssOpCommandMsg = mssCalculator.SetAndGetMssOp(mssPosX, mssPosY, atsPosX, atsPosY, launch);
+void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch) {
+	
 	if (launch) {
-		LaunchMss(); // 미사일 발사
-		mssOpCommandMsg.Launch = false;
+		double distance = sqrt(pow(atsPosX - mssStartX, 2) + pow(mssStartY - atsPosY, 2));
+		if (distance <= 50) {
+			LaunchMss(); // 미사일 발사
+			mssOpCommandMsg.Launch = false;
+		}
 	}
 
 }
