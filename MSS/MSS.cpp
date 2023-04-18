@@ -15,7 +15,7 @@ class MssPositionDeliverer {
 };
 
 void MssPositionDeliverer::SendMssPosition(double MssPositionX, double MssPositionY) {
-	return 0;
+	
 }
 
 class MssSimulator {
@@ -25,7 +25,7 @@ public:
 	int SimulationState;
 	void Start();
 	void Stop();
-	void Move();
+	void Move(double vectorX, double vectorY);
 	void UpdateMssPosition();
 	void UpdateSimulationState();
 };
