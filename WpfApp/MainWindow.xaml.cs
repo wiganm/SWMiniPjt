@@ -17,6 +17,8 @@ using System.Windows.Threading;
 using System.Windows.Media;
 using System.Collections;
 
+using ClassLibrary;
+
 
 namespace WpfApp
 {
@@ -36,6 +38,7 @@ namespace WpfApp
         ArrayList arrayList = new ArrayList();
 
         
+
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
@@ -255,6 +258,7 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
+
             if (double.TryParse(startxpos.Text, out double startX) &&
                 double.TryParse(startypos.Text, out double startY) &&
                 double.TryParse(endxpos.Text, out double endX) &&

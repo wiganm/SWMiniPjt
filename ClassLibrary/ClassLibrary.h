@@ -1,10 +1,19 @@
 ﻿#pragma once
+#include <thread>
+#include "../GCS/GCSClass.h"
 
-using namespace System;
 
-namespace ClassLibrary {
-	public ref class Class1
+namespace Wrapper
+{
+	public ref class GcsWrapper
 	{
-		// TODO: 여기에 이 클래스에 대한 메서드를 추가합니다.
+	private:
+		ScenarioSetting* ss = new ScenarioSetting();
+	public:
+		void test()
+		{
+			ss->GetAtsScenarioMsg();
+			printf("test");
+		}
 	};
 }
