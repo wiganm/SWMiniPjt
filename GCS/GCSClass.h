@@ -30,3 +30,33 @@ class Warning {
 public:
 	bool LaunchOk(double mssStartX, double mssStartY, double atsX, double atsY);
 };
+
+
+class OperationControl {
+public:
+	void SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch); //발사 버튼 누를 때 사용
+	void LaunchMss();
+
+	void SetMssState(bool state);
+	void SetAtsState(bool state);
+	void SetMssDirMsg(MssDirectionMsg mssDirectionMsg);
+	void SetMssPosMsg(MssPositionMsg msg);
+	void SetAtsPosMsg(AtsPositionMsg msg);
+
+	bool GetMssState();
+	bool GetAtsState();
+	MssDirectionMsg GetMssDirMsg();
+	MssPositionMsg GetMssPosMsg();
+	AtsPositionMsg GetAtsPosMsg();
+private:
+	MssOpCommandMsg mssOpCommandMsg;
+	MissileCalculator mssCalculator;
+
+	bool mssState;
+	bool atsState;
+	MssDirectionMsg mssDirectionMsg;
+	MssPositionMsg mssPosMsg;
+	AtsPositionMsg atsPosMsg;
+};
+
+OperationControl opControl; // gui 전달 데이터 담고있는 객체
