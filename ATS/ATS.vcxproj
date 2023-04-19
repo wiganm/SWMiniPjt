@@ -90,7 +90,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\User\Documents\SWMinipjt\ATS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\source\repos\MiniProject\ATS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -155,8 +155,8 @@
     <ClInclude Include="..\GCS\pch.h" />
     <ClInclude Include="AtsSimulation.h" />
     <ClInclude Include="MessageHandler.h" />
-    <ClInclude Include="MsgDatas.h" />
     <ClInclude Include="UdpClient.h" />
+    <ClInclude Include="MsgDatas.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GCS\pch.cpp">

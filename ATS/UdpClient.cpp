@@ -4,7 +4,10 @@
 #include <WS2tcpip.h>
 #include "pch.h"
 #include "UdpClient.h"
+#include "MsgDatas.h"
 #pragma comment(lib, "ws2_32.lib")
+
+using namespace std;
 
 
 UdpClient::UdpClient(const string ip, int client_port, int server_port) {

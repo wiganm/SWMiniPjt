@@ -1,31 +1,31 @@
-#define DISTDIVIDE 5000
 #pragma once
+#define DISTDIVIDE 5000
 
 struct AtsScenarioMsg {
 	int MessageID = 1501;
 	int MessageSize = sizeof(AtsScenarioMsg);
-	double  AtsStartX, AtsStartY;
+	double AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
-	int atsType; // 0 : 오류, 1 : 탄도탄, 2 : 항공기
+	int atsType; // 0 : 오류 1 : 탄도탄 2 : 항공기
 };
 
 struct AtsOpCommandMsg {
 	int MessageID = 1510;
 	int MessageSize = sizeof(AtsOpCommandMsg);
-	bool AstCommand = 0; // 0: 대기 및 종료, 1 : 동작
+	bool AstCommand;
 };
 
 struct InterceptMsg {
-	int MessageID = 1520; // 1520
+	int MessageID = 1520; // 1520 OR 1320
 	int MessageSize = sizeof(InterceptMsg);
-	bool  SuccessDef = 0; // 0: 요격 실패 및 진행 중, 1: 요격 성공
+	bool  SuccessDef;
 };
 
 struct AtsStateMsg {
 	int MessageID = 5101;
 	int MessageSize = sizeof(AtsStateMsg);
-	bool AstState =  0; // 0: 대기 및 종료, 1: 기동 중
+	bool AstState;
 };
 
 struct AtsPositionMsg {
@@ -44,8 +44,13 @@ struct MssScenarioMsg {
 struct MssOpCommandMsg {
 	int MessageID = 1310;
 	int MessageSize = sizeof(MssOpCommandMsg);
-	double XDir, YDir;
 	bool Launch;
+};
+
+struct MssDirectionMsg {
+	int MessageID = 1320;
+	int MessageSize = sizeof(MssOpCommandMsg);
+	double  XDir, YDir;
 };
 
 struct MssStateMsg {

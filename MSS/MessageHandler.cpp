@@ -17,12 +17,13 @@ void MessageHandler::Listen()
 	}
 }
 
-MessageHandler::MessageHandler()
+MessageHandler::MessageHandler(MssSimulator mssSimulator)
 {
 	const string ip = "127.0.0.1";
 	int client_port = 7777;
 	int server_port = 4444;
 	udpClient = new UdpClient(ip, client_port, server_port);
+	this->mssSimulator = mssSimulator;
 }
 
 void MessageHandler::ListenStart()
@@ -31,14 +32,14 @@ void MessageHandler::ListenStart()
 	t.detach();
 }
 
-void MessageHandler::SendMssPosition(double x, double y)
+void MessageHandler::SendMssPosition()
 {
 	char buf[1024] = { 0, };
 	MssPositionMsg pos;
-	pos.X_Pos = x;
-	pos.Y_Pos = y;
+	pos.X_Pos = mssSimulator.GetX();
+	pos.Y_Pos = mssSimulator.GetY();
 
 	memcpy(buf, &pos, sizeof(pos));
 
-	udpClient->send(buf);
+	udpClient->send(buf, sizeof(MssPositionMsg));
 }
