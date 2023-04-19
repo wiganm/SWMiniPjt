@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Windows.Media;
+using System.Collections;
 
 namespace WpfApp
 {
@@ -30,10 +31,10 @@ namespace WpfApp
         public double posx;
         public double posy;
         public double x, y;
-        int[][] scenario = new int[8][];
-        //posArray[0] = new int[2];
-        //posArray[1] = new int[2];
-        //posArray[2] = new int[2];
+        private string selectedValue;
+        ArrayList arrayList = new ArrayList();
+
+        
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
@@ -45,7 +46,7 @@ namespace WpfApp
 
         public MainWindow()
         {
-
+            arrayList.Add("10");
             InitializeComponent();
             Lines = new ObservableCollection<PathGeometry>();
             DrawGrid(20);
@@ -171,6 +172,8 @@ namespace WpfApp
                 posy = cursorPosition.Y;
                 xpos.Text = $"{posx}";
                 ypos.Text = $"{posy}";
+                arrayList.Add(posx);
+                arrayList.Add(posy);
                 int scope = 100;
                 AddDot(scope, x, y, Color.FromArgb(128, 135, 206, 250));
 
@@ -184,6 +187,8 @@ namespace WpfApp
                     startposy = cursorPosition.Y;
                     startxpos.Text = $"{startposx}";
                     startypos.Text = $"{startposy}";
+                    arrayList.Add(startposx);
+                    arrayList.Add(startposy);
                     // 점을 그리는 코드를 추가합니다.
 
                 }
@@ -194,6 +199,8 @@ namespace WpfApp
                     endposy = cursorPosition.Y;
                     endxpos.Text = $"{endposx}";
                     endypos.Text = $"{endposy}";
+                    arrayList.Add(endposx);
+                    arrayList.Add(endposy);
 
                 }
             }
@@ -292,7 +299,7 @@ namespace WpfApp
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -314,6 +321,33 @@ namespace WpfApp
         {
             bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
             bbyok.Play();
+        }
+
+        private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            // 선택된 ComboBoxItem을 가져옵니다.
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+
+            // 선택된 값을 문자열로 가져옵니다.
+            selectedValue = selectedItem.Content.ToString();
+            arrayList.Add(selectedValue);
+
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void speed_load_click(object sender, RoutedEventArgs e)
+        {
+            // TextBox에서 입력된 값을 가져옵니다.
+            double inputspeed;
+            inputspeed = Double.Parse(speed.Text);
+            arrayList.Add(inputspeed);
+
         }
 
         private void pos_load_click(object sender, RoutedEventArgs e)
