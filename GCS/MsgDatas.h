@@ -1,15 +1,9 @@
 #pragma once
-#pragma once
 #define DISTDIVIDE 5000
 
-<<<<<<< .merge_file_PS5ZVV
 struct AtsScenarioMsg { //공중위협 시나리오 메시지
 	int MessageID = 1501;
 	int MessageSize = sizeof(AtsScenarioMsg);
-=======
-struct AtsScenarioMsg {
-
->>>>>>> .merge_file_ItTG77
 	double  AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
@@ -53,9 +47,6 @@ struct MssOpCommandMsg { //대공유도탄 제어명령 메시지
 	bool Launch;
 };
 
-<<<<<<< .merge_file_PS5ZVV
-struct MssStateMsg { //대공유도탄 상태 메시지
-=======
 struct MssDirectionMsg {
 	int MessageID = 1320;
 	int MessageSize = sizeof(MssOpCommandMsg);
@@ -63,7 +54,6 @@ struct MssDirectionMsg {
 };
 
 struct MssStateMsg {
->>>>>>> .merge_file_ItTG77
 	int MessageID = 3110;
 	int MessageSize = sizeof(MssStateMsg);
 	bool MssState;

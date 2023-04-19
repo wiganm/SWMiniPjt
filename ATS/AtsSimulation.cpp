@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+#include "pch.h"
 #include "AtsSimulation.h"
 
 void AtsSimulation::Start(AtsScenarioMsg* atsScenarioMsg){ // 시나리오를 입력 받음

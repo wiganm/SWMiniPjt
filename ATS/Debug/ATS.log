@@ -1,5 +1,19 @@
 ﻿  pch.cpp
-  ATS.cpp
-C:\Users\User\Documents\SWMinipjt\ATS\ATS.h(3,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
-C:\Users\User\Documents\SWMinipjt\ATS\ATS.cpp(41,11): error C2065: 'MessageID': 선언되지 않은 식별자입니다.
-C:\Users\User\Documents\SWMinipjt\ATS\ATS.cpp(41,1): error C2050: switch 식이 정수 계열이 아닙니다.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(4,23): error C2011: 'AtsScenarioMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(4): message : 'AtsScenarioMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(13,24): error C2011: 'AtsOpCommandMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(13): message : 'AtsOpCommandMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(19,21): error C2011: 'InterceptMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(19): message : 'InterceptMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(25,20): error C2011: 'AtsStateMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(25): message : 'AtsStateMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(31,23): error C2011: 'AtsPositionMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(31): message : 'AtsPositionMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(37,23): error C2011: 'MssScenarioMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(37): message : 'MssScenarioMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(44,24): error C2011: 'MssOpCommandMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(44): message : 'MssOpCommandMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(51,20): error C2011: 'MssStateMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(56): message : 'MssStateMsg' 선언을 참조하십시오.
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(57,23): error C2011: 'MssPositionMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(62): message : 'MssPositionMsg' 선언을 참조하십시오.
