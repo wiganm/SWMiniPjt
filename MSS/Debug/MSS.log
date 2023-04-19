@@ -1,5 +1,7 @@
-﻿  MessageHandler.cpp
+﻿  main.cpp
+  MessageHandler.cpp
+C:\Users\User\Desktop\project\MSS\MessageHandler.cpp(4,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'MessageHandler.h': No such file or directory
+  MSS.cpp
   UdpClient.cpp
-  main.cpp
+C:\Users\User\Desktop\project\MSS\UdpClient.cpp(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'udpclient.h': No such file or directory
   코드를 생성하고 있습니다...
-  MSS.vcxproj -> C:\Users\User\source\repos\MiniProject\Debug\MSS.exe
