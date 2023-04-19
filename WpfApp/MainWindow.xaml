@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="794.4">
+        Title="MainWindow" Height="450" Width="912">
     <Grid Background="#757575" Margin="0,0,-114,23">
         <Grid.RowDefinitions>
             <RowDefinition Height="299*"/>
@@ -16,7 +16,7 @@
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="150" Margin="-14,0,-24.4,0" Stroke="Black" VerticalAlignment="Top" Width="161"/>
 
             <Button x:Name="ShootBtn" Content="발사" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="17,106,0,0" Height="38" Click="ShootBtn_Click"/>
-            <TextBox x:Name="xpos" HorizontalAlignment="Left" Height="22" Margin="-5,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            <TextBox x:Name="xpos" HorizontalAlignment="Left" Height="22" Margin="-2,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="-2,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="X좌표"/><LineBreak/><Run/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="48,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
             <TextBox x:Name="ypos" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="48,53,0,0" TextChanged="TextBox_TextChanged_2"/>
@@ -53,28 +53,37 @@
             <Button x:Name="speed_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="93,114,0,0" VerticalAlignment="Top" Width="43" Click="speed_load_click"/>
             <Button x:Name="simulation_start" Content="모의 시작" HorizontalAlignment="Left" Height="19" Margin="125,282,0,0" VerticalAlignment="Top" Width="75" Click="simulation_start_click"/>
         </Grid>
-        <Canvas x:Name="Map_" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="447" Margin="262,34,0,0" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown" Grid.RowSpan="2">
-            <ItemsControl ItemsSource="{Binding Lines}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Path Stroke="Black" StrokeThickness="1" Data="{Binding}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Canvas>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="763,12,0,0" Height="33" Width="86" Foreground="Black" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="미 운용 중"/>
+        <Grid Margin="262,34,-581,-4.2" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="734*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="482*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas x:Name="Map_" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="447" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown">
+                <ItemsControl ItemsSource="{Binding Lines}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Path Stroke="Black" StrokeThickness="1" Data="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
+            <Image x:Name="image" HorizontalAlignment="Left" Height="367" Margin="657,0,-0.2,0" VerticalAlignment="Top" Width="564"  Stretch="Uniform" Grid.ColumnSpan="3"/>
+
+        </Grid>
+        <TextBlock x:Name="current_state" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="737,161,0,0" Height="27" Width="150" Foreground="#FF101DAB" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="미 운용 중" FontSize="18" TextAlignment="Center"/>
         <Grid Margin="747,50,32,164.2">
 
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="85" Margin="-14,0,-18.4,0" Stroke="Black" VerticalAlignment="Top" Width="155"/>
             <TextBox x:Name="atsxpos" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="13,54,0,0" TextChanged="TextBox_TextChanged_1"/>
             <TextBox x:Name="atsypos" HorizontalAlignment="Left" Height="22" Margin="66,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="X좌표" VerticalAlignment="Top" Margin="13,38,0,0"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="66,38,0,0"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="66,38,0,0"><Run Text="Y좌"/><Run Text="표"/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Margin="9,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" Background="#FF999997"><Run Text="공중위협 현재 좌표"/><LineBreak/><Run/></TextBlock>
 
         </Grid>

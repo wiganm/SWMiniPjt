@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
-using System.Windows.Media;
 using System.Collections;
 
 namespace WpfApp
@@ -46,8 +45,9 @@ namespace WpfApp
 
         public MainWindow()
         {
-            arrayList.Add("10");
+            
             InitializeComponent();
+            LoadImageFromLocalFolder();
             Lines = new ObservableCollection<PathGeometry>();
             DrawGrid(20);
 
@@ -306,8 +306,9 @@ namespace WpfApp
 
         private void ShootBtn_Click(object sender, RoutedEventArgs e)
         {
-            bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
-            bbyok.Play();
+            ChangeImage1();
+            //bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
+            //bbyok.Play();
         }
 
         private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -350,8 +351,10 @@ namespace WpfApp
             double.TryParse(endxpos.Text, out double endX);
             double.TryParse(endypos.Text, out double endY);
 
-            
-                // 진한 빨간 점 추가
+            current_state.Text = "모의 중";
+            current_state.Foreground = Brushes.Yellow;
+            current_state.Background = Brushes.Red;
+            // 진한 빨간 점 추가
             int dotSize = 5; // 점의 크기 설정
 
             SolidColorBrush dotColor = Brushes.DarkRed; // 점의 색상을 진한 빨간색으로 설정
@@ -367,13 +370,42 @@ namespace WpfApp
             // 진한 빨간 점 이동
             TimeSpan duration = TimeSpan.FromMilliseconds(500);
             MoveDot(redDot, startX, startY, endX, endY, duration);
+            
+            // 배포 함수 사용
 
         }
+        private void ChangeImage1()
+        {
+            // Specify the new image file path
+            string newImagePath = @"C:\Users\User\Desktop\project\son2.png";
 
+            // Set the image source
+            var newImage = new BitmapImage();
+            newImage.BeginInit();
+            newImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
+            newImage.CacheOption = BitmapCacheOption.OnLoad;
+            newImage.EndInit();
+
+            image.Source = newImage;
+        }
         private void pos_load_click(object sender, RoutedEventArgs e)
         {
             posLoadButtonClicked = true;
            
+        }
+
+        private void LoadImageFromLocalFolder()
+        {
+            string localFolderPath = @"C:\Users\User\Desktop\project";
+            string imageName = "son.png";
+            string imagePath = System.IO.Path.Combine(localFolderPath, imageName);
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+            bitmap.EndInit();
+
+            image.Source = bitmap;
         }
     }
 }
