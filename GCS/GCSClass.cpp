@@ -8,7 +8,6 @@
 
 #include "MsgDatas.h"
 #include "GCSClass.h"
-#include "MessageHandler.h"
 
 using namespace std;
 
