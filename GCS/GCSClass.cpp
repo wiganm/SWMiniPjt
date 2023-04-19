@@ -112,6 +112,10 @@ void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, do
 	}
 }
 
+void OperationControl::SetApsOpCommandMsg(bool command) {
+	msgHandle.SendAtsOpMsg(command);
+}
+
 void OperationControl::LaunchMss() { // 구현해야함
 	msgHandle.SendMssOpMsg(true);
 }
