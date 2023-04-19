@@ -24,6 +24,9 @@
     <ClInclude Include="MsgDatas.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MSS.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MSS.cpp">

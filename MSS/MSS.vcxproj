@@ -156,6 +156,7 @@
     <ClInclude Include="MessageHandler.h" />
     <ClInclude Include="MsgDatas.h" />
     <ClInclude Include="UdpClient.h" />
+    <ClInclude Include="MSS.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

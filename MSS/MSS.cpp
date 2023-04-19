@@ -1,34 +1,11 @@
 ﻿#include "pch.h"
 #include "framework.h"
+#include "MSS.h"
 #include <cmath>
+#include <iostream>
 
-class MssPositionDeliverer {
-	void SendMssPosition(double, double);
-};
+using namespace std;
 
-void MssPositionDeliverer::SendMssPosition(double MssPositionX, double MssPositionY) {
-
-}
-
-class MssSimulator {
-public:
-	double InitX;
-	double InitY;
-	double currentX;
-	double currentY;
-
-	double MssPositionX;
-	double MssPositionY;
-	int SimulationState;
-
-private:
-	void Initialize(double, double);
-	void Start(int);
-	void Stop(int);
-	void Move(double, double);
-	void UpdateMssPosition();
-	void UpdateSimulationState();
-};
 
 void MssSimulator::Initialize(double MssStartX, double MssStartY) {
 	//Set start position
@@ -39,29 +16,21 @@ void MssSimulator::Initialize(double MssStartX, double MssStartY) {
 	double currentY = InitY;
 }
 
-void MssSimulator::Start(int SimulationState) {
+void MssSimulator::Start(bool SimulationState) {
 	//Initialize();
-	while (SimulationState == 1) {
-		Move(3.3,3.2);
-	}
+	if (SimulationState)
+		cout << "Mss Simulator get Started." << endl;
+	else
+		cout << "Mss Simulator get Stopped." << endl;
 }
 
-void MssSimulator::Stop(int SimulationState) {
-	while (SimulationState == 0) {
-		//???
-	}
-}
 
 void MssSimulator::Move(double vectorX, double vectorY) {
 	//Get next position
-	currentX += vectorX;
-	currentY += vectorY;
+	currentX += vectorX * 2.5;
+	currentY += vectorY * 2.5; // 5마하의 0.5초만큼 이동
 }
 
-void MssSimulator::UpdateMssPosition() {
-	MssPositionX = currentX;
-	MssPositionY = currentY;
-}
 
 void MssSimulator::UpdateSimulationState() {
 	if (SimulationState == 0) {
@@ -70,4 +39,14 @@ void MssSimulator::UpdateSimulationState() {
 	if (SimulationState == 1) {
 
 	}
+}
+
+double MssSimulator::GetX()
+{
+	return currentX;
+}
+
+double MssSimulator::GetY()
+{
+	return currentY;
 }
