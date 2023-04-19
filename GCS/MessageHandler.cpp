@@ -24,6 +24,7 @@ void MessageHandler::Listen()
 			MssStateMsg mssStateMsg;
 			memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
 
+			MssState = mssStateMsg.MssState;
 			opControl.SetMssState(mssStateMsg.MssState);
 			// gui 전달
 			break;
@@ -43,6 +44,8 @@ void MessageHandler::Listen()
 			cout << "공중위협 상태 메시지" << endl;// 구현 부분
 			AtsStateMsg atsStateMsg;
 			memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
+
+			AtsState = atsStateMsg.AstState;
 			opControl.SetAtsState(atsStateMsg.AstState);
 			// gui 전달
 			break;
@@ -51,6 +54,7 @@ void MessageHandler::Listen()
 			AtsPositionMsg atsPosMsg;
 			memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
 
+			AtsPositionX = atsPosMsg.X_AstLoc; AtsPositionY = atsPosMsg.Y_AstLoc;
 			opControl.SetAtsPosMsg(atsPosMsg);
 			break;
 		}
