@@ -1,11 +1,6 @@
-#include <iostream>
-#include <string>
-#include <winsock2.h>
-#include <WS2tcpip.h>
-#include "UdpClient.h"
 #pragma comment(lib, "ws2_32.lib")
+#include "pch.h"
 
-using namespace std;
 
 
 UdpClient::UdpClient(const string ip, int client_port, int server_port) {
@@ -28,7 +23,7 @@ UdpClient::UdpClient(const string ip, int client_port, int server_port) {
     client_addr.sin_addr.s_addr = htonl(INADDR_ANY); // 허용 ip
     client_addr.sin_port = htons(client_port); // 클라이언트 지정포트
     if (bind(sock, (struct sockaddr*)&client_addr, sizeof(client_addr)) == SOCKET_ERROR) {
-        std::cerr << "bind failed: " << WSAGetLastError() << "\n";
+        cout << "bind failed: " << WSAGetLastError() << "\n";
         closesocket(sock);
         WSACleanup();
     }

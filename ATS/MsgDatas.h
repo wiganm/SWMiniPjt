@@ -4,10 +4,10 @@
 struct AtsScenarioMsg {
 	int MessageID = 1501;
 	int MessageSize = sizeof(AtsScenarioMsg);
-	double  AtsStartX, AtsStartY;
-	double AtsDestiationX, AtsDestiationY;
-	double Velocity;
-	int atsType; // 0 : ¿À·ù, 1 : ÅºµµÅº, 2 : Ç×°ø±â
+	double AtsStartX = 0.0, AtsStartY = 0.0;
+	double AtsDestiationX = 0.0, AtsDestiationY = 0.0;
+	double Velocity = 0.0;
+	int atsType = 0; // 0 : ¿À·ù, 1 : ÅºµµÅº, 2 : Ç×°ø±â
 };
 
 struct AtsOpCommandMsg {

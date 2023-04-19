@@ -1,7 +1,9 @@
-#include <string>
-#include <winsock2.h>
 #pragma comment(lib, "ws2_32.lib")
 #pragma once
+#include <iostream>
+#include <string>
+#include <winsock2.h>
+#include <WS2tcpip.h>
 
 using namespace std;
 

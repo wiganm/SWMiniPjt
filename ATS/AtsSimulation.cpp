@@ -1,5 +1,4 @@
-#include <iostream>
-#include "AtsSimulation.h"
+#include "pch.h"
 
 void AtsSimulation::Start(AtsScenarioMsg* atsScenarioMsg){ // 시나리오를 입력 받음
 	time = 0; // 시작과 동시에 time은 0으로 초기화
