@@ -4,7 +4,11 @@
 struct AtsScenarioMsg { //공중위협 시나리오 메시지
 	int MessageID = 1501;
 	int MessageSize = sizeof(AtsScenarioMsg);
+<<<<<<< HEAD
 	double  AtsStartX, AtsStartY;
+=======
+	double AtsStartX, AtsStartY;
+>>>>>>> 3520e0077c5ef94d1eab708eafa930e485fa4837
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
 	int atsType; // 0 : 오류 1 : 탄도탄 2 : 항공기

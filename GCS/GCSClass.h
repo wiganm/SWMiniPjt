@@ -1,5 +1,6 @@
 #pragma once
 #include "MsgDatas.h"
+#include "MessageHandler.h"
 
 class ScenarioSetting
 {
@@ -36,6 +37,7 @@ class OperationControl {
 public:
 	void SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch); //발사 버튼 누를 때 사용
 	void LaunchMss();
+	void SetApsOpCommandMsg(bool command);
 
 	void SetMssState(bool state);
 	void SetAtsState(bool state);
@@ -60,3 +62,4 @@ private:
 };
 
 OperationControl opControl; // gui 전달 데이터 담고있는 객체
+MessageHandler msgHandle;

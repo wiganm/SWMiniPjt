@@ -1,9 +1,6 @@
-#include <string>
-#include "UdpServer.h"
-#include "GCSClass.h"
 #pragma once
-
-using namespace std;
+#include "UdpServer.h"
+#include "MsgDatas.h"
 
 class MessageHandler
 {
@@ -18,7 +15,6 @@ private:
 	double AtsDestPosX;
 	double AtsDestPosY;
 
-	MissileCalculator missileCalculator;
 	UdpServer* udpServer;
 	void Listen();
 public:
@@ -26,6 +22,7 @@ public:
 	//~MessageHandler();
 	void ListenStart();
 	void SendMssOpMsg(bool opMsg);
+	void SendAtsOpMsg(bool opMsg);
 	void SendMssScenarioMsg(MssScenarioMsg mmsg);
 	void SendAtsScenarioMsg(AtsScenarioMsg amsg);
 	void SendInterceptMsg(bool intermsg);
