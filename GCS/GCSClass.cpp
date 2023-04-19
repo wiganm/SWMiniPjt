@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include <string>
 #include <iostream>
 #include <cstdlib>
@@ -98,16 +100,8 @@ bool Warning::LaunchOk(double mssStartX, double mssStartY, double atsX, double a
 		return false;
 }
 
-class OperationControl {
-public:
-	void SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch);
-	void LaunchMss();
-private:
-	MssOpCommandMsg mssOpCommandMsg;
-	MissileCalculator mssCalculator;
-};
 
-void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch) {
+void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch) { 
 	
 	if (launch) {
 		Warning warning;
@@ -120,4 +114,43 @@ void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, do
 
 void OperationControl::LaunchMss() { // 구현해야함
 	msgHandle.SendMssOpMsg(true);
+}
+
+void OperationControl::SetMssState(bool state) {
+	mssState = state;
+}
+
+void OperationControl::SetAtsState(bool state) {
+	atsState = state;
+}
+
+void OperationControl::SetMssDirMsg(MssDirectionMsg msg) {
+	mssDirectionMsg = msg;
+}
+
+void OperationControl::SetMssPosMsg(MssPositionMsg msg) {
+	mssPosMsg = msg;
+}
+
+void OperationControl::SetAtsPosMsg(AtsPositionMsg msg) {
+	atsPosMsg = msg;
+}
+
+bool OperationControl::GetMssState() {
+	return mssState;
+}
+
+bool OperationControl::GetAtsState() {
+	return atsState;
+}
+
+MssDirectionMsg OperationControl::GetMssDirMsg() {
+	return mssDirectionMsg;
+}
+MssPositionMsg OperationControl::GetMssPosMsg() {
+	return mssPosMsg;
+}
+
+AtsPositionMsg OperationControl::GetAtsPosMsg() {
+	return atsPosMsg;
 }
