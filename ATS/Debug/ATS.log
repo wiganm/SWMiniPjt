@@ -13,7 +13,7 @@ C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(37,23): error C2011: 'MssScenar
 C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(37): message : 'MssScenarioMsg' 선언을 참조하십시오.
 C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(44,24): error C2011: 'MssOpCommandMsg': 'struct' 형식 재정의
 C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(44): message : 'MssOpCommandMsg' 선언을 참조하십시오.
-C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(51,20): error C2011: 'MssStateMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(50,20): error C2011: 'MssStateMsg': 'struct' 형식 재정의
 C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(56): message : 'MssStateMsg' 선언을 참조하십시오.
-C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(57,23): error C2011: 'MssPositionMsg': 'struct' 형식 재정의
+C:\Users\User\Documents\SWMinipjt\ATS\MsgDatas.h(56,23): error C2011: 'MssPositionMsg': 'struct' 형식 재정의
 C:\Users\User\Documents\SWMinipjt\GCS\MsgDatas.h(62): message : 'MssPositionMsg' 선언을 참조하십시오.
