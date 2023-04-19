@@ -17,10 +17,10 @@ private:
 
 class MissileCalculator { // 미사일 방향벡터 게산
 public:
-	MssDirectionMsg SetAndGetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY);
+	void SetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY);
 	// 미사일 방향 세팅 함수
 	void SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist);
-	void SendSuccessMsg(); // 구현해야함 통신사용 // 스테이트변경도 추가해서 전송
+	void SendSuccessMsg(bool success); // 구현해야함 통신사용 // 스테이트변경도 추가해서 전송
 private:
 	MssDirectionMsg mssDirectionMsg;
 	InterceptMsg interceptMsg;
