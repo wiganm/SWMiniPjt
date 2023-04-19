@@ -1,5 +1,6 @@
 #pragma once
 #include "MsgDatas.h"
+#include "MessageHandler.h"
 
 class ScenarioSetting
 {
