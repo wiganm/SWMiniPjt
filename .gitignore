@@ -2,10 +2,6 @@
 WpfApp/obj/
 Debug/
 WpfApp/bin/Debug
-<<<<<<< .merge_file_VhcjNb
-ATS/GCS.cpp
-ATS/Temp_ATS.cpp
-=======
 MSS/Debug
 ATS/Debug
->>>>>>> .merge_file_0SdDoj
+ClassLibrary/Debug
