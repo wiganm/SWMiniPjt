@@ -26,6 +26,7 @@ public:
 	//~MessageHandler();
 	void ListenStart();
 	void SendMssOpMsg(bool opMsg);
+	void SendAtsOpMsg(bool opMsg);
 	void SendMssScenarioMsg(MssScenarioMsg mmsg);
 	void SendAtsScenarioMsg(AtsScenarioMsg amsg);
 	void SendInterceptMsg(bool intermsg);
