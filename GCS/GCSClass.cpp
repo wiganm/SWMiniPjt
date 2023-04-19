@@ -11,6 +11,8 @@
 
 using namespace std;
 
+MessageHandler msgHandle;
+
 /// <summary>
 /// ScenarioSetting
 /// </summary>
@@ -21,11 +23,15 @@ void ScenarioSetting::SetAtsScenarioMsg(double initX, double initY, double destX
 	atsScenarioMsg.AtsDestiationY = destY;
 	atsScenarioMsg.Velocity = velocity;
 	atsScenarioMsg.atsType = atstype;
+
+	msgHandle.SendAtsScenarioMsg(atsScenarioMsg);
 }
 
 void ScenarioSetting::SetMssScenarioMsg(double initX, double initY) {
 	mssScenarioMsg.MssStartX = initX;
 	mssScenarioMsg.MssStartY = initY;
+
+	msgHandle.SendMssScenarioMsg(mssScenarioMsg);
 }
 
 AtsScenarioMsg ScenarioSetting::GetAtsScenarioMsg() {
@@ -47,33 +53,38 @@ ScenarioSetting::~ScenarioSetting()
 /// <summary>
 /// MissileCalculator
 /// </summary>
-MssDirectionMsg MissileCalculator::SetAndGetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY) {
+void MissileCalculator::SetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY) {
 	double x = atsPosX - mssPosX;
 	double y = atsPosY - mssPosY;
 	double absize = sqrt(x*x + y*y);
 	
 	mssDirectionMsg.XDir = x / absize;
-	mssDirectionMsg.YDir = y / absize;
+	mssDirectionMsg.YDir = y / absize; 
+
+	msgHandle.SendMssDir(mssDirectionMsg);
+	// send dir
 	//mssOpCommandMsg.Launch = launch;
 
-	return mssDirectionMsg;
+
 }
 
 void MissileCalculator::SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist) {
 	double distance = sqrt(pow(atsPosX - mssPosX, 2) + pow(atsPosY - mssPosY, 2));
 	if (distance <= interDist) {
 		interceptMsg.SuccessDef = true;
-		SendSuccessMsg();
+		SendSuccessMsg(true);
 	}
 	double destAtsDist = sqrt(pow(atsDestPosX - atsPosX, 2) + pow(atsDestPosY - atsPosY, 2));
 	if (destAtsDist <= 5) {
 		interceptMsg.SuccessDef = false;
-		SendSuccessMsg();
+		SendSuccessMsg(false);
 	}
 }
 
-void MissileCalculator::SendSuccessMsg() {
+void MissileCalculator::SendSuccessMsg(bool success) {
 	// 통신 클래스에 전달 interceptMsg를
+	msgHandle.SendInterceptMsg(success);
+
 }
 
 /// <summary>
@@ -105,9 +116,8 @@ void OperationControl::SetMssOpCommandMsg(double mssStartX, double mssStartY, do
 			mssOpCommandMsg.Launch = false;
 		}
 	}
-
 }
 
 void OperationControl::LaunchMss() { // 구현해야함
-	//
+	msgHandle.SendMssOpMsg(true);
 }

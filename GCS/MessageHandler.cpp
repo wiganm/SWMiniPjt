@@ -59,27 +59,39 @@ void MessageHandler::SendMssOpMsg(bool opMsg)
 	udpServer->send(7777, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
-void MessageHandler::SendMssScenarioMsg(double xStart, double yStart) {
+void MessageHandler::SendMssScenarioMsg(MssScenarioMsg mmsg) {
 	char buf[1024] = { 0, };
 	MssScenarioMsg msg;
-	ScenarioSetting setting;
-	setting.SetMssScenarioMsg(xStart, yStart);
-	msg = setting.GetMssScenarioMsg();
+	msg = mmsg;
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
-void MessageHandler::SendAtsScenarioMsg(double xStart, double yStart, double xDest, double yDest, double velocity, int type) {
+void MessageHandler::SendAtsScenarioMsg(AtsScenarioMsg amsg) {
 	char buf[1024] = { 0, };
 	AtsScenarioMsg msg;
-	ScenarioSetting setting;
-	setting.SetAtsScenarioMsg(xStart, yStart, xDest, yDest, velocity,type);
-	msg = setting.GetAtsScenarioMsg();
+	
+	msg = amsg;
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(8888, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
-// mss에서 recv 후 방향 GCSClass에서 가져와서 사용
-// 발사 명령도 recv 후 사용
+void MessageHandler::SendInterceptMsg(bool intermsg) {
+	char buf[1024] = { 0, };
+	InterceptMsg msg;
+	msg.SuccessDef = intermsg;
+
+	memcpy(buf, &msg, sizeof(msg));
+	udpServer->send(7777, buf);
+	udpServer->send(8888, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+}
+
+void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
+	char buf[1024] = { 0, };
+	MssDirectionMsg msg;
+
+	memcpy(buf, &msg, sizeof(msg));
+	udpServer->send(7777, buf);
+}

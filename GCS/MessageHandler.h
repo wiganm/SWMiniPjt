@@ -26,6 +26,8 @@ public:
 	//~MessageHandler();
 	void ListenStart();
 	void SendMssOpMsg(bool opMsg);
-	void SendMssScenarioMsg(double xStart, double yStart);
-	void SendAtsScenarioMsg(double xStart, double yStart, double xDest, double yDest, double velocity, int type);
+	void SendMssScenarioMsg(MssScenarioMsg mmsg);
+	void SendAtsScenarioMsg(AtsScenarioMsg amsg);
+	void SendInterceptMsg(bool intermsg);
+	void SendMssDir(MssDirectionMsg dirmsg);
 };
