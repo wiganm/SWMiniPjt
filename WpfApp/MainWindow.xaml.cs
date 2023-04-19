@@ -288,7 +288,7 @@ namespace WpfApp
                 // 진한 빨간 점 이동
                 TimeSpan duration = TimeSpan.FromMilliseconds(500);
                 MoveDot(redDot, startX, startY, endX, endY, duration);
-                MessageBox.Show("유효한 좌표 값을 입력하세요.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
             else
             {

@@ -20,7 +20,7 @@
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="-2,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="X좌표"/><LineBreak/><Run/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Height="16" Margin="48,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
             <TextBox x:Name="ypos" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="48,53,0,0" TextChanged="TextBox_TextChanged_2"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,5,0,0" Background="#FF999997" Height="22" Width="45"><Run Text="유도탄"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="14,5,0,0" Background="#FF999997" Height="22" Width="97"><Run Text="유도탄"/><Run Text=" "/><Run Text="초기 좌표"/></TextBlock>
 
         </Grid>
         <Grid Margin="7,50,645,35.8" Grid.RowSpan="2">
@@ -66,12 +66,12 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="763,12,0,0" Height="33" Width="86" Foreground="Black" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="사정 거리 밖"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="763,12,0,0" Height="33" Width="86" Foreground="Black" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="미 운용 중"/>
         <Grid Margin="747,50,32,164.2">
 
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="85" Margin="-14,0,-18.4,0" Stroke="Black" VerticalAlignment="Top" Width="155"/>
-            <TextBox HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="13,54,0,0" TextChanged="TextBox_TextChanged_1"/>
-            <TextBox HorizontalAlignment="Left" Height="22" Margin="66,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            <TextBox x:Name="atsxpos" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="13,54,0,0" TextChanged="TextBox_TextChanged_1"/>
+            <TextBox x:Name="atsypos" HorizontalAlignment="Left" Height="22" Margin="66,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="X좌표" VerticalAlignment="Top" Margin="13,38,0,0"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="66,38,0,0"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
             <TextBlock HorizontalAlignment="Left" Margin="9,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" Background="#FF999997"><Run Text="공중위협 현재 좌표"/><LineBreak/><Run/></TextBlock>
