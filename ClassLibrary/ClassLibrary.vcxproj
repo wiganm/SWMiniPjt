@@ -80,7 +80,11 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+<<<<<<< HEAD
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\project\GCS</AdditionalIncludeDirectories>
+=======
       <AdditionalIncludeDirectories>C:\Users\User\Documents\SWMiniPjt\Debug;C:\Users\User\Documents\SWMiniPjt\GCS</AdditionalIncludeDirectories>
+>>>>>>> 0594e69080196d06dc19fa0ca21a9dbfd048e211
     </ClCompile>
     <Link>
       <AdditionalDependencies />
