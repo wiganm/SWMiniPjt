@@ -44,8 +44,13 @@ struct MssScenarioMsg {
 struct MssOpCommandMsg {
 	int MessageID = 1310;
 	int MessageSize = sizeof(MssOpCommandMsg);
-	double  XDir, YDir;
 	bool Launch;
+};
+
+struct MssDirectionMsg {
+	int MessageID = 1320;
+	int MessageSize = sizeof(MssOpCommandMsg);
+	double  XDir, YDir;
 };
 
 struct MssStateMsg {

@@ -11,38 +11,48 @@
             <RowDefinition Height="299*"/>
             <RowDefinition Height="98*"/>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="150" Margin="747,211,0,0" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="123"/>
 
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="85" Margin="747,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
+        <Grid Margin="747,211,32,35.8" Grid.RowSpan="2">
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="150" Margin="-14,0,-24.4,0" Stroke="Black" VerticalAlignment="Top" Width="161"/>
+
+            <Button x:Name="ShootBtn" Content="발사" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="17,106,0,0" Height="38" Click="ShootBtn_Click"/>
+            <TextBox x:Name="xpos" HorizontalAlignment="Left" Height="22" Margin="-5,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            <TextBlock HorizontalAlignment="Left" Height="16" Margin="-2,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="X좌표"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Height="16" Margin="48,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
+            <TextBox x:Name="ypos" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="48,53,0,0" TextChanged="TextBox_TextChanged_2"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,5,0,0" Background="#FF999997" Height="22" Width="45"><Run Text="유도탄"/><LineBreak/><Run/></TextBlock>
+
+        </Grid>
         <Grid Margin="7,50,645,35.8" Grid.RowSpan="2">
 
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="311" Margin="0,0,-0.4,0" Stroke="Black" VerticalAlignment="Top" Width="250"/>
-            <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="271" Margin="10,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="227"/>
-            <TextBox x:Name="startxpos" HorizontalAlignment="Left" Height="22" Margin="57,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="InputTextBox_TextChanged" MouseLeftButtonDown="startxpos_MouseLeftButtonDown"/>
-            <Button x:Name="confirm" Content="제출" HorizontalAlignment="Left" Margin="88,282,0,0" VerticalAlignment="Top" Width="75" Click="confirm_scenario_click"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="57,194,0,0"><Run Text="X좌표"/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="138,194,0,0"/>
-            <TextBlock HorizontalAlignment="Left" Height="18" Margin="17,161,0,0" TextWrapping="Wrap" Text="공중위협 좌표" VerticalAlignment="Top" Width="91" Background="#FF999997"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="57,242,0,0"><Run Text="X좌표"/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="138,242,0,0"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="18,194,0,0" Text="초기"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="18,242,0,0" Text="목적"/>
-            <TextBox x:Name="startypos" HorizontalAlignment="Left" Height="22" Margin="138,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MouseLeftButtonDown="startypos_MouseLeftButtonDown"/>
-            <TextBox x:Name="endypos" HorizontalAlignment="Left" Height="22" Margin="138,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
-            <TextBox x:Name="endxpos" HorizontalAlignment="Left" Height="22" Margin="57,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="endxpos_TextChanged"/>
-            <Button x:Name="start_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="190,215,0,0" VerticalAlignment="Top" Width="43" RenderTransformOrigin="0.5,0.5" Click="start_load_click"/>
-            <Button x:Name="end_load" Content="저장" HorizontalAlignment="Left" Height="19" Margin="190,258,0,0" VerticalAlignment="Top" Width="43" Click="end_load_click"/>
-            <ComboBox x:Name="type" HorizontalAlignment="Left" Height="25" Margin="18,60,0,0" VerticalAlignment="Top" Width="112">
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="311" Stroke="Black" VerticalAlignment="Top" Width="230"/>
+            <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="271" Margin="10,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="209"/>
+            <TextBox x:Name="startxpos" HorizontalAlignment="Left" Height="22" Margin="57,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="InputTextBox_TextChanged" MouseLeftButtonDown="startxpos_MouseLeftButtonDown"/>
+            <Button x:Name="confirm" Content="제출" HorizontalAlignment="Left" Margin="74,282,0,0" VerticalAlignment="Top" Width="75" Click="confirm_scenario_click"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="57,187,0,0"><Run Text="X좌표"/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="115,187,0,0"/>
+            <TextBlock HorizontalAlignment="Left" Height="22" Margin="17,161,0,0" TextWrapping="Wrap" Text="공중위협 좌표" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="57,235,0,0"><Run Text="X좌표"/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="115,235,0,0"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="18,187,0,0" Text="초기"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="18,235,0,0" Text="목적"/>
+            <TextBox x:Name="startypos" HorizontalAlignment="Left" Height="22" Margin="115,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MouseLeftButtonDown="startypos_MouseLeftButtonDown"/>
+            <TextBox x:Name="endypos" HorizontalAlignment="Left" Height="22" Margin="115,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            <TextBox x:Name="endxpos" HorizontalAlignment="Left" Height="22" Margin="57,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="endxpos_TextChanged"/>
+            <Button x:Name="start_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="167,208,0,0" VerticalAlignment="Top" Width="43" RenderTransformOrigin="0.5,0.5" Click="start_load_click"/>
+            <Button x:Name="end_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="167,255,0,0" VerticalAlignment="Top" Width="43" Click="end_load_click"/>
+            <ComboBox x:Name="type" HorizontalAlignment="Left" Height="25" Margin="18,60,0,0" VerticalAlignment="Top" Width="112"  SelectionChanged="MyComboBox_SelectionChanged">
                 <ComboBoxItem Content="1.탄도탄" IsSelected="True"/>
                 <ComboBoxItem Content="2.항공기" IsSelected="True"/>
 
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" Height="23" Margin="18,37,0,0" TextWrapping="Wrap" Text="공중위협 종류" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
-            <TextBlock HorizontalAlignment="Left" Height="15" Margin="18,96,0,0" TextWrapping="Wrap" Text="공중위협 속도" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
-            <TextBox x:Name="speed" HorizontalAlignment="Left" Height="19" Margin="18,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" TextChanged="TextBox_TextChanged"/>
+            <TextBlock HorizontalAlignment="Left" Height="22" Margin="18,37,0,0" TextWrapping="Wrap" Text="공중위협 종류" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
+            <TextBlock HorizontalAlignment="Left" Height="22" Margin="18,90,0,0" TextWrapping="Wrap" Text="공중위협 속도" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
+            <TextBox x:Name="speed" HorizontalAlignment="Left" Height="22" Margin="18,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" TextChanged="TextBox_TextChanged"/>
             <TextBlock HorizontalAlignment="Left" Height="17" Margin="17,8,0,0" TextWrapping="Wrap" Text="공중위협 시나리오" VerticalAlignment="Top" Width="114"/>
+            <Button x:Name="speed_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="93,114,0,0" VerticalAlignment="Top" Width="43" Click="speed_load_click"/>
         </Grid>
-        <Canvas x:Name="Map_" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="447" Margin="282,34,0,0" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown" Grid.RowSpan="2">
+        <Canvas x:Name="Map_" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="447" Margin="262,34,0,0" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown" Grid.RowSpan="2">
             <ItemsControl ItemsSource="{Binding Lines}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -56,18 +66,18 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
-        <Button Content="발사" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="766,17.8,0,0" Height="38" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="763,12,0,0" Height="33" Width="86" Foreground="Black" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="사정 거리 밖"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Margin="760,104,0,0" TextChanged="TextBox_TextChanged_1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="813,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="X좌표" VerticalAlignment="Top" Margin="760,88,0,0"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="813,88,0,0"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="756,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Background="#FF999997"><Run Text="공중위협 현재 좌표"/><LineBreak/><Run/></TextBlock>
-        <TextBox x:Name="xpos" HorizontalAlignment="Left" Height="16" Margin="760,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39"/>
-        <TextBlock HorizontalAlignment="Left" Height="16" Margin="763,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="X좌표"/><LineBreak/><Run/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="16" Margin="813,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
-        <TextBox x:Name="ypos" HorizontalAlignment="Left" Height="17" TextWrapping="Wrap" VerticalAlignment="Top" Width="39" Margin="813,264,0,0" TextChanged="TextBox_TextChanged_2"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="783,216,0,0" Background="#FF999997" Height="23" Width="41"><Run Text="유도탄"/><LineBreak/><Run/></TextBlock>
+        <Grid Margin="747,50,32,164.2">
+
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="85" Margin="-14,0,-18.4,0" Stroke="Black" VerticalAlignment="Top" Width="155"/>
+            <TextBox HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Margin="13,54,0,0" TextChanged="TextBox_TextChanged_1"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Margin="66,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="X좌표" VerticalAlignment="Top" Margin="13,38,0,0"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="66,38,0,0"><Run Text="Y좌표"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Margin="9,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" Background="#FF999997"><Run Text="공중위협 현재 좌표"/><LineBreak/><Run/></TextBlock>
+
+        </Grid>
+        <Button x:Name="pos_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="844,264,0,0" VerticalAlignment="Top" Width="43" Click="pos_load_click" />
 
     </Grid>
 </Window>
