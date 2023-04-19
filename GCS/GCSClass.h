@@ -61,3 +61,4 @@ private:
 };
 
 OperationControl opControl; // gui 전달 데이터 담고있는 객체
+MessageHandler msgHandle;

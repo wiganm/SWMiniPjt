@@ -12,8 +12,6 @@
 
 using namespace std;
 
-MessageHandler msgHandle;
-
 /// <summary>
 /// ScenarioSetting
 /// </summary>
