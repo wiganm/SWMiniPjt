@@ -1,13 +1,14 @@
 #include "pch.h"
 
-#include "UdpServer.h"
 #include <thread>
 #include <iostream>
+
 #include "MessageHandler.h"
-#include "MsgDatas.h"
 #include "GCSClass.h"
 
 using namespace std;
+
+MissileCalculator missileCalculator;
 
 void MessageHandler::Listen()
 {
@@ -19,46 +20,57 @@ void MessageHandler::Listen()
 		
 		switch (messageId)
 		{
-		case 3110: // 미사일 상태 메시지
-			cout << "미사일 상태메시지 수신" << endl;// 구현 부분
-			MssStateMsg mssStateMsg;
-			memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
+			case 3110: // 미사일 상태 메시지
+			{
+				cout << "미사일 상태메시지 수신" << endl;// 구현 부분
+				MssStateMsg mssStateMsg;
+				memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
 
-			MssState = mssStateMsg.MssState;
-			opControl.SetMssState(mssStateMsg.MssState);
-			// gui 전달
-			break;
-		case 3120: // 미사일 포지션 메시지
-			MssPositionMsg mssPositionMsg;
-			memcpy(&mssPositionMsg, temp, sizeof(MssPositionMsg));
+				MssState = mssStateMsg.MssState;
+				opControl.SetMssState(mssStateMsg.MssState);
+				// gui 전달
+				break;
+			}
+			case 3120: // 미사일 포지션 메시지
+			{
+				MssPositionMsg mssPositionMsg;
+				memcpy(&mssPositionMsg, temp, sizeof(MssPositionMsg));
 
-			opControl.SetMssPosMsg(mssPositionMsg);
+				opControl.SetMssPosMsg(mssPositionMsg);
 
-			MssPositionX = mssPositionMsg.X_Pos; MssPositionY = mssPositionMsg.Y_Pos;
-			missileCalculator.SetDirMss(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY); // 미사일 포지션 수신시 미사일 방향 업데이트
-			missileCalculator.SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5); // 성공 결과 확인
+				MssPositionX = mssPositionMsg.X_Pos; MssPositionY = mssPositionMsg.Y_Pos;
+				missileCalculator.SetDirMss(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY); // 미사일 포지션 수신시 미사일 방향 업데이트
+				missileCalculator.SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5); // 성공 결과 확인
 
-			// gui 연동
-			break;
-		case 5101: // 공중위협 상태 메시지
-			cout << "공중위협 상태 메시지" << endl;// 구현 부분
-			AtsStateMsg atsStateMsg;
-			memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
+				// gui 연동
+				break;
+			}
+			case 5101: // 공중위협 상태 메시지
+			{
+				cout << "공중위협 상태 메시지" << endl;// 구현 부분
+				AtsStateMsg atsStateMsg;
+				memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
 
-			AtsState = atsStateMsg.AstState;
-			opControl.SetAtsState(atsStateMsg.AstState);
-			// gui 전달
-			break;
-		case 5110: // 공중위협 포지션 메시지
-			cout << "공중위협 포지션 메시지" << endl;// 구현 부분
-			AtsPositionMsg atsPosMsg;
-			memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
+				AtsState = atsStateMsg.AstState;
+				opControl.SetAtsState(atsStateMsg.AstState);
+				// gui 전달
+				break;
+			}
+			case 5110: // 공중위협 포지션 메시지
+			{
+				cout << "공중위협 포지션 메시지" << endl;// 구현 부분
+				AtsPositionMsg atsPosMsg;
+				memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
 
-			AtsPositionX = atsPosMsg.X_AstLoc; AtsPositionY = atsPosMsg.Y_AstLoc;
-			opControl.SetAtsPosMsg(atsPosMsg);
-			break;
+				AtsPositionX = atsPosMsg.X_AstLoc; AtsPositionY = atsPosMsg.Y_AstLoc;
+				opControl.SetAtsPosMsg(atsPosMsg);
+				break;
+			}
+			default:
+			{
+				break;
+			}
 		}
-
 	}
 }
 
