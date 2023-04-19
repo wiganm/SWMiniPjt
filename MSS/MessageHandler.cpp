@@ -11,9 +11,26 @@ void MessageHandler::Listen()
 {
 	while (true)
 	{
-		string msg;
-		msg = udpClient->recv();
-		cout << msg << endl;
+		int messageId;
+		const char* temp = udpClient->recv();
+		memcpy(&messageId, temp, 4);
+
+		switch (messageId)
+		{
+		case 1301: // 시나리오
+			cout << "미사일 상태메시지 수신" << endl;// 구현 부분
+			MssPositionMsg data;
+			memcpy(&data, temp, sizeof(MssPositionMsg));
+			int x = data.X_Pos;
+			int y = data.Y_Pos;
+			break;
+		case 1310: // 운용msg
+		
+			break;
+		case 1320: // 방향msg
+			cout << "공중위협 상태 메시지" << endl;// 구현 부분
+			break;
+		}
 	}
 }
 
@@ -33,12 +50,11 @@ void MessageHandler::ListenStart()
 
 void MessageHandler::SendMssPosition(double x, double y)
 {
-	char buf[1024] = { 0, };
+	char buf[sizeof(MssPositionMsg)] = { 0 };
 	MssPositionMsg pos;
 	pos.X_Pos = x;
 	pos.Y_Pos = y;
-
 	memcpy(buf, &pos, sizeof(pos));
 
-	udpClient->send(buf);
+	udpClient->send(buf, sizeof(pos));
 }

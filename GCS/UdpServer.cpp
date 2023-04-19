@@ -44,11 +44,11 @@ UdpServer::~UdpServer() {
     WSACleanup();
 }
 
-void UdpServer::send(int port, const char* message) {
+void UdpServer::send(int port, const char* message, int size) {
     clientaddr.sin_port = htons(port);
 
-    sendto(sock, message, sizeof(message), 0,
-        (const struct sockaddr*)&server_addr, sizeof(server_addr));
+    sendto(sock, message, size, 0,
+        (const struct sockaddr*)&clientaddr, sizeof(clientaddr));
 }
 
 char* UdpServer::recv() {

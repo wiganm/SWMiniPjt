@@ -55,5 +55,5 @@ void MessageHandler::SendMssOpMsg(bool opMsg)
 	msg.Launch = opMsg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(7777, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }

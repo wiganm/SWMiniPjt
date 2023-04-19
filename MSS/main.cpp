@@ -12,7 +12,7 @@ int main()
 	while (true)
 	{
 		// 테스트용 1.1과 2.2을 지속 전송함
-		messageHandler->SendMssPosition(1.1, 2.2);
+		messageHandler->SendMssPosition(1.1, 8.8);
 		this_thread::sleep_for(chrono::milliseconds(500));
 		
 	}

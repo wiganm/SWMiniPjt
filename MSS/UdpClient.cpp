@@ -50,8 +50,8 @@ UdpClient::~UdpClient() {
     WSACleanup();
 }
 
-void UdpClient::send(const char* message) {
-    sendto(sock, message, sizeof(message), 0,
+void UdpClient::send(char* message, int size) {
+    sendto(sock, message, size, 0,
         (const struct sockaddr*)&server_addr, sizeof(server_addr));
 }
 
