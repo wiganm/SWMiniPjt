@@ -28,7 +28,7 @@
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="311" Stroke="Black" VerticalAlignment="Top" Width="230"/>
             <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="271" Margin="10,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="209"/>
             <TextBox x:Name="startxpos" HorizontalAlignment="Left" Height="22" Margin="57,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="InputTextBox_TextChanged" MouseLeftButtonDown="startxpos_MouseLeftButtonDown"/>
-            <Button x:Name="confirm" Content="제출" HorizontalAlignment="Left" Margin="74,282,0,0" VerticalAlignment="Top" Width="75" Click="confirm_scenario_click"/>
+            <Button x:Name="confirm" Content="배포" HorizontalAlignment="Left" Margin="37,282,0,0" VerticalAlignment="Top" Width="75" Click="confirm_scenario_click"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="57,187,0,0"><Run Text="X좌표"/></TextBlock>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Y좌표" VerticalAlignment="Top" Margin="115,187,0,0"/>
             <TextBlock HorizontalAlignment="Left" Height="22" Margin="17,161,0,0" TextWrapping="Wrap" Text="공중위협 좌표" VerticalAlignment="Top" Width="89" Background="#FF999997"/>
@@ -51,6 +51,7 @@
             <TextBox x:Name="speed" HorizontalAlignment="Left" Height="22" Margin="18,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" TextChanged="TextBox_TextChanged"/>
             <TextBlock HorizontalAlignment="Left" Height="17" Margin="17,8,0,0" TextWrapping="Wrap" Text="공중위협 시나리오" VerticalAlignment="Top" Width="114"/>
             <Button x:Name="speed_load" Content="저장" HorizontalAlignment="Left" Height="22" Margin="93,114,0,0" VerticalAlignment="Top" Width="43" Click="speed_load_click"/>
+            <Button x:Name="simulation_start" Content="모의 시작" HorizontalAlignment="Left" Height="19" Margin="125,282,0,0" VerticalAlignment="Top" Width="75" Click="simulation_start_click"/>
         </Grid>
         <Canvas x:Name="Map_" HorizontalAlignment="Left" Height="334" VerticalAlignment="Top" Width="447" Margin="262,34,0,0" Background="#FF3A7143"  MouseLeftButtonDown="Map_MouseLeftButtonDown" Grid.RowSpan="2">
             <ItemsControl ItemsSource="{Binding Lines}">

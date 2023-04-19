@@ -273,22 +273,8 @@ namespace WpfApp
 
                 Map_.Children.Add(line); // Canvas에 선 추가
 
-                // 진한 빨간 점 추가
-                int dotSize = 5; // 점의 크기 설정
-                SolidColorBrush dotColor = Brushes.DarkRed; // 점의 색상을 진한 빨간색으로 설정
-                Ellipse redDot = new Ellipse // 새로운 원형 도형(점) 생성
-                {
-                    Width = dotSize,
-                    Height = dotSize,
-                    Fill = dotColor,
-                    Margin = new Thickness(startX - (dotSize / 2), startY - (dotSize / 2), 0, 0) // 점의 중심이 시작 좌표가 되도록 위치 조정
-                };
-                Map_.Children.Add(redDot); // Canvas에 점 추가
-
-                // 진한 빨간 점 이동
-                TimeSpan duration = TimeSpan.FromMilliseconds(500);
-                MoveDot(redDot, startX, startY, endX, endY, duration);
                 
+                // 여기서 시나리오 array ClassLibrary로 보내줘야해
             }
             else
             {
@@ -348,6 +334,39 @@ namespace WpfApp
             double inputspeed;
             inputspeed = Double.Parse(speed.Text);
             arrayList.Add(inputspeed);
+
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void simulation_start_click(object sender, RoutedEventArgs e)
+        {
+            // 선을 그리는 코드를 추가합니다.
+            double.TryParse(startxpos.Text, out double startX);
+            double.TryParse(startypos.Text, out double startY);
+            double.TryParse(endxpos.Text, out double endX);
+            double.TryParse(endypos.Text, out double endY);
+
+            
+                // 진한 빨간 점 추가
+            int dotSize = 5; // 점의 크기 설정
+
+            SolidColorBrush dotColor = Brushes.DarkRed; // 점의 색상을 진한 빨간색으로 설정
+            Ellipse redDot = new Ellipse // 새로운 원형 도형(점) 생성
+            {
+                Width = dotSize,
+                Height = dotSize,
+                Fill = dotColor,
+                Margin = new Thickness(startX - (dotSize / 2), startY - (dotSize / 2), 0, 0) // 점의 중심이 시작 좌표가 되도록 위치 조정
+            };
+            Map_.Children.Add(redDot); // Canvas에 점 추가
+
+            // 진한 빨간 점 이동
+            TimeSpan duration = TimeSpan.FromMilliseconds(500);
+            MoveDot(redDot, startX, startY, endX, endY, duration);
 
         }
 
