@@ -1,4 +1,5 @@
 #include "UdpClient.h"
+#include "MSS.h"
 #pragma once
 
 
@@ -6,13 +7,11 @@ class MessageHandler
 {
 private:
 	UdpClient* udpClient;
-	//void MessageParse();
+	MssSimulator mssSimulator;
 	void Listen();
 public:
-	MessageHandler();
-	//~MessageHandler();
+	MessageHandler(MssSimulator mssSimulator);
 	void ListenStart();
-	void SendMssPosition(double x, double y);
-	//void SendMssState();
-
+	void SendMssPosition();
+	void SendMssState();
 };

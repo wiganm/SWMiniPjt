@@ -78,7 +78,7 @@ void MessageHandler::SendMssOpMsg(bool opMsg)
 	msg.Launch = opMsg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(7777, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
 void MessageHandler::SendMssScenarioMsg(MssScenarioMsg mmsg) {
@@ -87,7 +87,7 @@ void MessageHandler::SendMssScenarioMsg(MssScenarioMsg mmsg) {
 	msg = mmsg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(7777, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
 void MessageHandler::SendAtsScenarioMsg(AtsScenarioMsg amsg) {
@@ -97,7 +97,7 @@ void MessageHandler::SendAtsScenarioMsg(AtsScenarioMsg amsg) {
 	msg = amsg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(8888, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+	udpServer->send(8888, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
 void MessageHandler::SendInterceptMsg(bool intermsg) {
@@ -106,8 +106,8 @@ void MessageHandler::SendInterceptMsg(bool intermsg) {
 	msg.SuccessDef = intermsg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(7777, buf);
-	udpServer->send(8888, buf); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
+	udpServer->send(7777, buf, sizeof(msg));
+	udpServer->send(8888, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
 void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
@@ -115,5 +115,5 @@ void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
 	MssDirectionMsg msg;
 
 	memcpy(buf, &msg, sizeof(msg));
-	udpServer->send(7777, buf);
+	udpServer->send(7777, buf, sizeof(msg));
 }

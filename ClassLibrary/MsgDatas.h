@@ -1,10 +1,10 @@
 #pragma once
-#pragma once
 #define DISTDIVIDE 5000
 
 struct AtsScenarioMsg {
-
-	double  AtsStartX, AtsStartY;
+	int MessageID = 1501;
+	int MessageSize = sizeof(AtsScenarioMsg);
+	double AtsStartX, AtsStartY;
 	double AtsDestiationX, AtsDestiationY;
 	double Velocity;
 	int atsType; // 0 : ¿À·ù 1 : ÅºµµÅº 2 : Ç×°ø±â

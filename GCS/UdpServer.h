@@ -17,6 +17,6 @@ private:
 public:
     UdpServer(const string ip, int server_port);
     ~UdpServer();
-    void send(int port, const char* message);
+    void send(int port, const char* message, int size);
     char* recv();
 };
