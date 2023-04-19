@@ -1,10 +1,99 @@
-ï»¿// ATS.cpp : ì •ì  ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ìœ„í•œ í•¨ìˆ˜ë¥¼ ì •ì˜í•©ë‹ˆë‹¤.
-//
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
 
-#include "pch.h"
-#include "framework.h"
+#include "MsgDatas.h"
+#include "ATS.h"
 
-// TODO: ë¼ì´ë¸ŒëŸ¬ë¦¬ í•¨ìˆ˜ì˜ ì˜ˆì œì…ë‹ˆë‹¤.
-void fnATS()
-{
+using namespace std;
+
+/// <summary>
+/// UdpClient
+/// </summary>
+void UdpClient::Send(int socket) {
+	char send_buf[MAX_BUF_LEN];	
+
+	if((state == 1510) && (state != pre_state)){ // ¸í·ÉÀ» ¼ö½ÅÇÑ »óÅÂ = ÇÑ ¹ø¸¸ ¼Û½Å(ÀÌÀü »óÅÂ != ÇöÀç »óÅÂ)
+		if (atsOpCommandMsg.AstCommand == 1) { // ±âµ¿ ½ÃÀÛ ¸í·É
+			atsStateMsg.AstState = atsSimulation.Start(&atsScenarioMsg);
+			memcpy(send_buf, &atsStateMsg, sizeof(atsStateMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+			pre_state = state;
+		}
+	}
+	else if ((state == 1510) || (state == 1520) ) { //Áö¼ÓÀûÀÎ ¼Û½Å
+		if ((atsOpCommandMsg.AstCommand == 1) && (interceptMsg.SuccessDef == 0)) { // ±âµ¿ ½ÃÀÛ & ¿ä°İ ¹Ì¿Ï·á
+			atsSimulation.UpdateAtsPostion(&atsPositionMsg, atsScenarioMsg.AtsStartX, atsScenarioMsg.AtsStartY, atsScenarioMsg.Velocity);
+			memcpy(send_buf, &atsPositionMsg, sizeof(atsPositionMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+		}
+		else {
+			atsStateMsg.AstState = atsSimulation.Stop();
+			memcpy(send_buf, &atsStateMsg, sizeof(atsStateMsg)); // °øÁßÀ§Çù »óÅÂ¸¦ buffer¿¡ copy
+			sendto(socket, send_buf, strlen(send_buf), 0, (struct sockaddr*)nullptr, 0);
+			pre_state = state = 0;
+		}
+	}
+}
+
+void UdpClient::Receive(int socket) {
+	
+	char recv_buf[MAX_BUF_LEN];
+	
+
+	// UDP Åë½Å - ¼ö½ÅÆÄÆ® ÄÚµå (¼öÁ¤ÇÊ¿ä)
+	struct sockaddr_in addr;
+	socklen_t addr_len = sizeof(addr);
+	int len = recvfrom(socket, recv_buf, MAX_BUF_LEN, 0, (struct sockaddr*)&addr, &addr_len); //¼Û½Å¹ŞÀº buf°¡ 0³ª¿À±â Àü±îÁö º¹»ç?
+	recv_buf[len] = '\0'; // 0ÀÌ ³ª¿À±â ½ÃÀÛÇÑ ºÎºĞ±îÁöÀÇ ¸Ş½ÃÁö¸¸ ´Ù·ë.
+
+	memcpy(&state, recv_buf, sizeof(int)); // ¼ö½ÅÇÑ Åë½Å µ¥ÀÌÅÍ·ÎºÎÅÍ MessageID¸¸ ºĞ¸®
+
+	if (state == 1501) { //½Ã³ª¸®¿À ÀÔ·Â
+		memcpy(&atsScenarioMsg, recv_buf, sizeof(atsScenarioMsg));
+	}
+	else if (state == 1510) { // °øÁßÀ§Çù ¸í·É(±âµ¿ ½ÃÀÛ, Á¾·á)
+		memcpy(&atsOpCommandMsg, recv_buf, sizeof(atsOpCommandMsg));
+	}
+	else if (state == 1520) { // ¿ä°İÀÌº¥Æ® (¿î¿ëÅëÁ¦±â->°øÁßÀ§Çù¸ğÀÇ±â)
+		memcpy(&interceptMsg, recv_buf, sizeof(interceptMsg));
+	}
+}
+
+/// <summary>
+/// MessaageHandler
+/// </summary>
+void MessaageHandler::MessageParser(int sockfd, int cur_state) {
+	while (1) {
+		// ¼ö½ÅÃø thread »ı¼º -> °è¼Ó ¼ö½Å ´ë±â
+		thread receive_thread(&UdpClient::Receive, sockfd);
+		// ¼Û½ÅÃø thread »ı¼º -> °è¼Ó ¼Û½Å ´ë±â
+		thread send_thread(&UdpClient::Send, sockfd);
+	};
+}
+
+/// <summary>
+/// AtsSimulation
+/// </summary>
+bool AtsSimulation::Start(AtsScenarioMsg *atsScenarioMsg) { // if((interceptMsg.SuccessDef == 0)&&(atsOpCommandMsg.AstCommand == 1))
+	period = 0;
+	slope = (atsScenarioMsg->AtsDestiationY - atsScenarioMsg->AtsStartY) / (atsScenarioMsg->AtsDestiationX - atsScenarioMsg->AtsStartX);
+	interceptY = atsScenarioMsg->AtsStartY - slope * atsScenarioMsg->AtsStartX;
+	return 1;
+}
+
+bool AtsSimulation::Stop() { // if((interceptMsg.SuccessDef == 1)||(atsOpCommandMsg.AstCommand == 0))
+	period = 0;
+	slope = 0;
+	interceptY = 0;
+	return 0;
+}
+
+void AtsSimulation::UpdateAtsPostion(AtsPositionMsg* atsPositionMsg, double initX, double initY, double velocity) { // if(atsStateMsg.AstState==1)
+	atsPositionMsg->X_AstLoc = initX + sqrt(1/((1*1)+(slope*slope)))*period*velocity;
+	atsPositionMsg->Y_AstLoc = initX + sqrt(slope / ((1 * 1) + (slope * slope))) * period * velocity;
+	period += 1;
 }

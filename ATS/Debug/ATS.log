@@ -1,0 +1,5 @@
+﻿  pch.cpp
+  ATS.cpp
+C:\Users\User\Documents\SWMinipjt\ATS\ATS.h(3,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+C:\Users\User\Documents\SWMinipjt\ATS\ATS.cpp(41,11): error C2065: 'MessageID': 선언되지 않은 식별자입니다.
+C:\Users\User\Documents\SWMinipjt\ATS\ATS.cpp(41,1): error C2050: switch 식이 정수 계열이 아닙니다.
