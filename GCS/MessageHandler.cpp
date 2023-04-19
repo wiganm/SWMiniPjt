@@ -8,8 +8,6 @@
 
 using namespace std;
 
-MissileCalculator missileCalculator;
-
 void MessageHandler::Listen()
 {
 	while (true)
@@ -27,7 +25,8 @@ void MessageHandler::Listen()
 				memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
 
 				MssState = mssStateMsg.MssState;
-				opControl.SetMssState(mssStateMsg.MssState);
+				operationControl->SetMssState(mssStateMsg.MssState);
+
 				// gui 전달
 				break;
 			}
@@ -36,12 +35,12 @@ void MessageHandler::Listen()
 				MssPositionMsg mssPositionMsg;
 				memcpy(&mssPositionMsg, temp, sizeof(MssPositionMsg));
 
-				opControl.SetMssPosMsg(mssPositionMsg);
-
+				operationControl->SetMssPosMsg(mssPositionMsg);
+				
 				MssPositionX = mssPositionMsg.X_Pos; MssPositionY = mssPositionMsg.Y_Pos;
-				missileCalculator.SetDirMss(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY); // 미사일 포지션 수신시 미사일 방향 업데이트
-				missileCalculator.SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5); // 성공 결과 확인
-
+				SendMssDir(MissileCalculator::SetDirMss(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY)); // 미사일 포지션 수신시 미사일 방향 업데이트
+				SendInterceptMsg(MissileCalculator::SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5)); // 성공 결과 확인
+				
 				// gui 연동
 				break;
 			}
@@ -52,7 +51,8 @@ void MessageHandler::Listen()
 				memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
 
 				AtsState = atsStateMsg.AstState;
-				opControl.SetAtsState(atsStateMsg.AstState);
+				operationControl->SetAtsState(atsStateMsg.AstState);
+
 				// gui 전달
 				break;
 			}
@@ -63,7 +63,7 @@ void MessageHandler::Listen()
 				memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
 
 				AtsPositionX = atsPosMsg.X_AstLoc; AtsPositionY = atsPosMsg.Y_AstLoc;
-				opControl.SetAtsPosMsg(atsPosMsg);
+				operationControl->SetAtsPosMsg(atsPosMsg);
 				break;
 			}
 			default:
@@ -106,20 +106,20 @@ void MessageHandler::SendAtsOpMsg(bool opMsg) {
 	udpServer->send(8888, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
-void MessageHandler::SendMssScenarioMsg(MssScenarioMsg mmsg) {
+void MessageHandler::SendMssScenarioMsg() {
 	char buf[1024] = { 0, };
 	MssScenarioMsg msg;
-	msg = mmsg;
+	msg = scenarioSetting->GetMssScenarioMsg();
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
 
-void MessageHandler::SendAtsScenarioMsg(AtsScenarioMsg amsg) {
+void MessageHandler::SendAtsScenarioMsg() {
 	char buf[1024] = { 0, };
 	AtsScenarioMsg msg;
 	
-	msg = amsg;
+	msg = scenarioSetting->GetAtsScenarioMsg();
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(8888, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
@@ -138,7 +138,10 @@ void MessageHandler::SendInterceptMsg(bool intermsg) {
 void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
 	char buf[1024] = { 0, };
 	MssDirectionMsg msg;
+	msg = dirmsg;
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg));
 }
+
+// 시나리오 세팅 class 전송

@@ -17,7 +17,7 @@ using System.Windows.Threading;
 using System.Windows.Media;
 using System.Collections;
 
-using ClassLibrary;
+using Wrapper;
 
 
 namespace WpfApp
@@ -27,6 +27,7 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        GcsWrapper gcs; 
         public double startposx;
         public double startposy;
         public double endposx;
@@ -37,7 +38,7 @@ namespace WpfApp
         private string selectedValue;
         ArrayList arrayList = new ArrayList();
 
-        
+
 
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
@@ -56,6 +57,8 @@ namespace WpfApp
             DrawGrid(20);
 
             DataContext = this;
+
+            gcs = new GcsWrapper();
 
         }
         

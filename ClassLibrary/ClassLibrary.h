@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <thread>
-#include "../GCS/GCSClass.h"
+#include <GCSClass.h>
+#include <MessageHandler.h>
 
 
 namespace Wrapper
@@ -8,12 +9,13 @@ namespace Wrapper
 	public ref class GcsWrapper
 	{
 	private:
-		ScenarioSetting* ss = new ScenarioSetting();
+		MessageHandler* messagehandler = new MessageHandler();
 	public:
-		void test()
+		void SendMssScenarioMsg()
 		{
-			ss->GetAtsScenarioMsg();
-			printf("test");
+			messagehandler->SendMssScenarioMsg();
+			printf("tetewtwetew");
 		}
+
 	};
 }
