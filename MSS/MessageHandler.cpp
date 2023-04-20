@@ -22,36 +22,41 @@ void MessageHandler::Listen()
 		{
 		case 1301: // 시나리오
 		{
-			cout << "1301 : 수신" << endl;// 구현 부분
+			cout << "----- 시나리오 정보 수신 -----" << endl;// 구현 부분
 			MssScenarioMsg mssScenarioMsg;
 			memcpy(&mssScenarioMsg, temp, sizeof(mssScenarioMsg));
 
-			cout << mssScenarioMsg.MssStartX << mssScenarioMsg.MssStartY << mssScenarioMsg.Velocity << endl;
+			cout << "시작위치 : " << mssScenarioMsg.MssStartX << ", " << mssScenarioMsg.MssStartY << mssScenarioMsg.Velocity << endl;
 
 			// gui 전달
 			break;
 		}
 		case 1310: // 운용제어
 		{
-			cout << "1310 : 수신" << endl;
+			
 			MssOpCommandMsg mssOpCommandMsg;
 			memcpy(&mssOpCommandMsg, temp, sizeof(MssOpCommandMsg));
 
 			if (mssOpCommandMsg.Launch == true)
+			{
 				mssSimulator.Start();
+				cout << "운용제어 시작 수신" << endl;
+			}
 			else
+			{
+				cout << "운용제어 중지 수신" << endl;
 				mssSimulator.Stop();
-			cout << mssOpCommandMsg.MessageID << mssOpCommandMsg.Launch << endl;
+				cout << mssOpCommandMsg.MessageID << mssOpCommandMsg.Launch << endl;
+			}
 			// gui 연동
 			break;
 		}
 		case 1320: // 요격
 		{
-			cout << "1320 : 수신" << endl;
 			MssDirectionMsg mssDirectionMsg;
 			memcpy(&mssDirectionMsg, temp, sizeof(MssDirectionMsg));
-
-			cout << mssDirectionMsg.XDir << mssDirectionMsg.YDir << endl;
+			cout << "유도 방향" <<mssDirectionMsg.XDir << ", " << mssDirectionMsg.YDir << endl;
+			mssSimulator.Move(mssDirectionMsg.XDir, mssDirectionMsg.YDir);
 
 			// gui 전달
 			break;
