@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Collections;
 
+
 using Wrapper;
 
 namespace WpfApp
@@ -35,6 +36,7 @@ namespace WpfApp
         public double x, y;
         private string selectedValue;
         ArrayList arrayList = new ArrayList();
+        ArrayList logarrayList = new ArrayList();
         private Ellipse myEllipse = new Ellipse();
         private Ellipse myEllipse2 = new Ellipse();
         private List<Ellipse> dots = new List<Ellipse>();
@@ -307,7 +309,8 @@ namespace WpfApp
 
                 Map_.Children.Add(line); // Canvas에 선 추가
 
-
+                logarrayList.Add("시나리오 배포");
+                event_log.Text = logarrayList[0].ToString();
                 // 여기서 시나리오 array ClassLibrary로 보내줘야해
             }
             else
@@ -342,6 +345,8 @@ namespace WpfApp
         {
             ChangeImage1();
             int dotSize = 7; // 점의 크기 설정
+            logarrayList.Add("유도탄 발사");
+            event_log.Text = logarrayList[0].ToString() + ", " + logarrayList[1].ToString() + ", " + logarrayList[2].ToString();
             double.TryParse(xpos.Text, out double startX);
             double.TryParse(ypos.Text, out double startY);
             double.TryParse(endxpos.Text, out double endX);
@@ -404,6 +409,8 @@ namespace WpfApp
             double.TryParse(endypos.Text, out double endY);
 
             current_state.Text = "모의 중";
+            logarrayList.Add("모의 시작");
+            event_log.Text = logarrayList[0].ToString() +", " +logarrayList[1].ToString();
             current_state.Foreground = Brushes.Yellow;
             current_state.Background = Brushes.Red;
             // 진한 빨간 점 추가
