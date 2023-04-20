@@ -11,10 +11,11 @@ void MessageHandler::Listen()
 		int messageId;
 		const char* temp = udpClient->recv();
 		memcpy(&messageId, temp, 4);
-		if (messageId == 1520 && !atsSimulation->GetState())
+		/*if (messageId == 1520 && !atsSimulation->GetState())
 		{
 			continue;
-		}
+		}*/
+		cout << "fdgfsd" << endl;
 		switch (messageId)
 		{
 		case 1501: // 공중위협 시나리오 메시지
