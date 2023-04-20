@@ -70,15 +70,16 @@ MssDirectionMsg MissileCalculator::SetDirMss(double mssPosX, double mssPosY, dou
 
 bool MissileCalculator::SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist) {
 	double distance = sqrt(pow(atsPosX - mssPosX, 2) + pow(atsPosY - mssPosY, 2));
-	if (distance <= interDist) {
+	if (distance <= interDist) { // 입력값보다 작은 거리면 성공
 		//interceptMsg.SuccessDef = true;
 		return 1;
 	}
 	double destAtsDist = sqrt(pow(atsDestPosX - atsPosX, 2) + pow(atsDestPosY - atsPosY, 2));
-	if (destAtsDist <= 5) {
+	if (destAtsDist <= 5) { // 목적지랑 위치 5이하면 실패
 		//interceptMsg.SuccessDef = false;
 		return 0;
 	}
+	return 0;
 }
 
 //void MissileCalculator::SendSuccessMsg(bool success) {

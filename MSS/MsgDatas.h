@@ -19,7 +19,7 @@ struct AtsOpCommandMsg {
 struct InterceptMsg {
 	int MessageID = 1520; // 1520 OR 1320
 	int MessageSize = sizeof(InterceptMsg);
-	bool  SuccessDef;
+	int  SuccessDef = 0; // 0:진행중, 1:성공 2:실패
 };
 
 struct AtsStateMsg {
@@ -51,6 +51,7 @@ struct MssDirectionMsg {
 	int MessageID = 1320;
 	int MessageSize = sizeof(MssOpCommandMsg);
 	double  XDir, YDir;
+	int  SuccessDef = 0; // 0:진행중, 1:성공 2:실패
 };
 
 struct MssStateMsg {

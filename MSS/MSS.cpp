@@ -9,11 +9,11 @@ using namespace std;
 
 void MssSimulator::Initialize(double MssStartX, double MssStartY) {
 	//Set start position
-	double InitX = MssStartX;
-	double InitY = MssStartY;
-	//Set current position
-	double currentX = InitX;
-	double currentY = InitY;
+	InitX = MssStartX;
+	InitY = MssStartY;
+	//Set current position5
+	currentX = InitX;
+	currentY = InitY;
 }
 
 void MssSimulator::Start() {
@@ -24,6 +24,7 @@ void MssSimulator::Start() {
 void MssSimulator::Stop() {
 	//Initialize();
 	state = false;
+	cout << "모의를 중지합니다." << endl;
 }
 
 

@@ -351,6 +351,7 @@ namespace WpfApp
 
         private void ShootBtn_Click(object sender, RoutedEventArgs e)
         {
+            gcs.mssStart();
             ChangeImage1();
             int dotSize = 7; // 점의 크기 설정
             logarrayList.Add("유도탄 발사");

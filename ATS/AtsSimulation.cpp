@@ -25,6 +25,8 @@ void AtsSimulation::Start()
 }
 
 void AtsSimulation::Stop() {
+	state = false;
+	cout << "요격을 중지합니다." << endl;
 	// 변수 초기화 함수 따로 만들건지에 따라 구현 필요성 정해질 수도?
 	// 아래에 변수 초기화용 함수 따로 만들기는 함.
 }

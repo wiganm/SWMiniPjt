@@ -19,7 +19,7 @@ struct AtsOpCommandMsg {
 struct InterceptMsg {
 	int MessageID = 1520; // 1520
 	int MessageSize = sizeof(InterceptMsg);
-	bool  SuccessDef = 0; // 0: 요격 실패 및 진행 중, 1: 요격 성공
+	int  SuccessDef = 0; // 0: 진행 중, 1: 요격 성공, 2 : 요격 실패
 };
 
 struct AtsStateMsg {
@@ -45,7 +45,6 @@ struct MssOpCommandMsg {
 	int MessageID = 1310;
 	int MessageSize = sizeof(MssOpCommandMsg);
 	double  XDir, YDir;
-	bool Launch;
 };
 
 struct MssStateMsg {

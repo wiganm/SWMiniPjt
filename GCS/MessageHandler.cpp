@@ -20,7 +20,6 @@ void MessageHandler::Listen()
 		{
 			case 3110: // 미사일 상태 메시지
 			{
-				cout << "3110 : 미사일 상태메시지 수신" << endl;// 구현 부분
 				MssStateMsg mssStateMsg;
 				memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
 
@@ -32,7 +31,6 @@ void MessageHandler::Listen()
 			}
 			case 3120: // 미사일 포지션 메시지
 			{
-				cout << "3120 : 미사일 상태메시지 수신" << endl;
 				MssPositionMsg mssPositionMsg;
 				memcpy(&mssPositionMsg, temp, sizeof(MssPositionMsg));
 
@@ -40,15 +38,21 @@ void MessageHandler::Listen()
 				
 				MssPositionX = mssPositionMsg.X_Pos; MssPositionY = mssPositionMsg.Y_Pos;
 				SendMssDir(MissileCalculator::SetDirMss(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY)); // 미사일 포지션 수신시 미사일 방향 업데이트
-				SendInterceptMsg(MissileCalculator::SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5)); // 성공 결과 확인
+				
+				int result = MissileCalculator::SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5);
+				SendInterceptMsg(result); // 요격 상태 전송
+				if (result == 1 || result == 2)
+				{
+					SendAtsOpMsg(false);
+					SendMssOpMsg(false);
+				}
+				
 				
 				// gui 연동
 				break;
 			}
 			case 5101: // 공중위협 상태 메시지
 			{
-				cout << "5101 : 미사일 상태메시지 수신" << endl;
-				cout << "공중위협 상태 메시지" << endl;// 구현 부분
 				AtsStateMsg atsStateMsg;
 				memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
 
@@ -60,7 +64,6 @@ void MessageHandler::Listen()
 			}
 			case 5110: // 공중위협 포지션 메시지
 			{
-				cout << "5110 : 공중위협 포지션 메시지" << endl;// 구현 부분
 				AtsPositionMsg atsPosMsg;
 				memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
 
@@ -141,5 +144,3 @@ void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg));
 }
-
-// 시나리오 세팅 class 전송

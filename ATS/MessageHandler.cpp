@@ -36,7 +36,20 @@ void MessageHandler::Listen()
 		case 1520: // 요격 이벤트
 		{
 			memcpy(&interceptMsg, temp, sizeof(InterceptMsg));
-			// cout << "공중위협 요격 이벤트 수신 : " << interceptMsg.SuccessDef << endl;
+			if (interceptMsg.SuccessDef == 1)
+			{
+				cout << "요격 성공" << endl;
+				atsSimulation->Stop();
+			}
+			if (interceptMsg.SuccessDef == 2)
+			{ 
+				cout << "요격 실패" << endl;
+				atsSimulation->Stop();
+			}
+			if (interceptMsg.SuccessDef == 0)
+				cout << "요격 중" << endl;
+			
+			cout << "현재 위치" << atsSimulation->GetPos().X_AstLoc << ", " << atsSimulation->GetPos().Y_AstLoc << endl;
 			break;
 		}
 		}
@@ -66,4 +79,8 @@ void MessageHandler::SendAtsState(){ // AtsSimulation::UpdateAtsState()는 생략
 	char buf[sizeof(AtsStateMsg)] = { 0, };
 	memcpy(buf, &atsStateMsg, sizeof(AtsStateMsg));
 	udpClient->send(buf, sizeof(AtsStateMsg));
+}
+
+int MessageHandler::IsEnd() {
+	return interceptMsg.SuccessDef;
 }

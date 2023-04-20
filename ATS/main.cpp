@@ -19,6 +19,10 @@ int main()
 			atsSimulation->UpdateAtsPostion();
 			this_thread::sleep_for(chrono::milliseconds(500));
 		}
+		/*if (messageHandler->IsEnd())
+		{
+			break;
+		}*/
 	}
 
 	cout << "Mss Simulation을 종료합니다." << endl;

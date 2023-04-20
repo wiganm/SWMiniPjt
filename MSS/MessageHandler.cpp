@@ -26,8 +26,8 @@ void MessageHandler::Listen()
 			MssScenarioMsg mssScenarioMsg;
 			memcpy(&mssScenarioMsg, temp, sizeof(mssScenarioMsg));
 
-			cout << "시작위치 : " << mssScenarioMsg.MssStartX << ", " << mssScenarioMsg.MssStartY << mssScenarioMsg.Velocity << endl;
-
+			cout << "시작위치 : " << mssScenarioMsg.MssStartX << ", " << mssScenarioMsg.MssStartY << endl;
+			mssSimulator.Initialize(mssScenarioMsg.MssStartX, mssScenarioMsg.MssStartY);
 			// gui 전달
 			break;
 		}
@@ -55,9 +55,22 @@ void MessageHandler::Listen()
 		{
 			MssDirectionMsg mssDirectionMsg;
 			memcpy(&mssDirectionMsg, temp, sizeof(MssDirectionMsg));
+			if (mssDirectionMsg.SuccessDef == 1)
+			{
+				cout << "요격 성공" << endl;
+				mssSimulator.Stop();
+			}
+			if (mssDirectionMsg.SuccessDef == 2)
+			{
+				cout << "요격 실패" << endl;
+				mssSimulator.Stop();
+			}
+			if (mssDirectionMsg.SuccessDef == 2)
+				cout << "요격 중" << endl;
+
 			cout << "유도 방향" <<mssDirectionMsg.XDir << ", " << mssDirectionMsg.YDir << endl;
 			mssSimulator.Move(mssDirectionMsg.XDir, mssDirectionMsg.YDir);
-
+			cout << "현재 위치 : " << mssSimulator.GetX() << ", " << mssSimulator.GetY() << endl;
 			// gui 전달
 			break;
 		}

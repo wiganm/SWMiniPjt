@@ -14,5 +14,5 @@ public:
 	void ListenStart();
 	void SendMssPosition();
 	void SendMssState();
-
+	int isEnd();
 };

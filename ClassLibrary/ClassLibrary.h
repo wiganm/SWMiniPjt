@@ -5,6 +5,9 @@
 #include <cstring>
 #include <windows.h>
 
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
 
 namespace Wrapper
 {
@@ -12,7 +15,12 @@ namespace Wrapper
 	{
 	private:
 		MessageHandler* messagehandler = new MessageHandler();
+
+		// 관리되지 않는 메모리에서 관리되는 객체에 액세스하기 위한 방법을 제공함
 	public:
+		
+		//- ----------------------------------------------------------------
+
 		void UdpStart() {
 			messagehandler->ListenStart();
 		}
@@ -27,8 +35,13 @@ namespace Wrapper
 
 		void Start()
 		{
-			messagehandler->SendMssOpMsg(true);
+			// messagehandler->SendMssOpMsg(true);
 			messagehandler->SendAtsOpMsg(true);
+		}
+
+		void mssStart()
+		{
+			messagehandler->SendMssOpMsg(true);
 		}
 		
 		void StopMss()

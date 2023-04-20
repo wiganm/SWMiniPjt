@@ -29,4 +29,5 @@ public:
 	void ListenStart();
 	void SendAtsPosition();
 	void SendAtsState();
+	int IsEnd();
 };
