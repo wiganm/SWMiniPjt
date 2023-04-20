@@ -18,7 +18,6 @@ using System.Collections;
 
 using Wrapper;
 
-
 namespace WpfApp
 {
     /// <summary>
@@ -26,7 +25,7 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        GcsWrapper gcs; 
+        GcsWrapper gcs;
         public double startposx;
         public double startposy;
         public double endposx;
@@ -36,32 +35,29 @@ namespace WpfApp
         public double x, y;
         private string selectedValue;
         ArrayList arrayList = new ArrayList();
-
-
-
+        private Ellipse myEllipse = new Ellipse();
+        private Ellipse myEllipse2 = new Ellipse();
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
         private bool posLoadButtonClicked = false;
 
         MediaPlayer bbyok = new MediaPlayer();
-        
+
         public ObservableCollection<PathGeometry> Lines { get; set; }
 
         public MainWindow()
         {
-            
+            gcs = new GcsWrapper();
             InitializeComponent();
             LoadImageFromLocalFolder();
             Lines = new ObservableCollection<PathGeometry>();
             DrawGrid(20);
-
+            gcs.UdpStart();
             DataContext = this;
 
-            gcs = new GcsWrapper();
-
         }
-        
+
         // 진한 빨간 점 이동 메소드 추가
         private async void MoveDot(Ellipse dot, double startX, double startY, double endX, double endY, TimeSpan duration)
         {
@@ -118,7 +114,7 @@ namespace WpfApp
 
 
 
- 
+
 
         private void endxpos_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -148,7 +144,29 @@ namespace WpfApp
 
             return dot;
         }
+        private void RemoveElementAtCoordinate(double x, double y, double tolerance = 0.1)
+        {
+            List<Ellipse> elementsToRemove = new List<Ellipse>();
 
+            foreach (UIElement element in Map_.Children)
+            {
+                if (element is Ellipse dot)
+                {
+                    double dotX = Canvas.GetLeft(dot);
+                    double dotY = Canvas.GetTop(dot);
+
+                    if (Math.Abs(dotX - x) <= tolerance && Math.Abs(dotY - y) <= tolerance)
+                    {
+                        elementsToRemove.Add(dot);
+                    }
+                }
+            }
+
+            foreach (Ellipse dot in elementsToRemove)
+            {
+                Map_.Children.Remove(dot);
+            }
+        }
         private void RemoveDot(Ellipse dot)
         {
             if (dots.Contains(dot))
@@ -160,10 +178,10 @@ namespace WpfApp
         private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Canvas에서 커서의 현재 위치를 가져옵니다.
-            
+
             Point cursorPosition = e.GetPosition(Map_);
 
-           
+
             // 위치의 X와 Y 좌표를 사용하여 작업을 수행할 수 있습니다.
 
             int dotSize = 5; // 점의 크기
@@ -173,7 +191,11 @@ namespace WpfApp
 
             if (!posLoadButtonClicked)
             {
-
+                if (dots.Count > 1)
+                {
+                    RemoveDot(dots[0]);
+                    RemoveDot(dots[0]);
+                }
                 AddDot(dotSize, x, y, Colors.DarkBlue);
                 posx = cursorPosition.X;
                 posy = cursorPosition.Y;
@@ -184,11 +206,18 @@ namespace WpfApp
                 int scope = 100;
                 AddDot(scope, x, y, Color.FromArgb(128, 135, 206, 250));
 
+
+
+
             }
             else
             {
                 if (!startLoadButtonClicked)
                 {
+                    if (dots.Count > 2)
+                    {
+                        RemoveDot(dots[2]);
+                    }
                     AddDot(dotSize, x, y, Colors.Yellow);
                     startposx = cursorPosition.X;
                     startposy = cursorPosition.Y;
@@ -201,6 +230,10 @@ namespace WpfApp
                 }
                 else
                 {
+                    if (dots.Count > 3)
+                    {
+                        RemoveDot(dots[3]);
+                    }
                     AddDot(dotSize, x, y, Colors.Yellow);
                     endposx = cursorPosition.X;
                     endposy = cursorPosition.Y;
@@ -211,7 +244,7 @@ namespace WpfApp
 
                 }
             }
-    
+
 
 
 
@@ -261,7 +294,7 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
-
+            gcs.SendMssScenarioMsg();
             if (double.TryParse(startxpos.Text, out double startX) &&
                 double.TryParse(startypos.Text, out double startY) &&
                 double.TryParse(endxpos.Text, out double endX) &&
@@ -281,7 +314,7 @@ namespace WpfApp
 
                 Map_.Children.Add(line); // Canvas에 선 추가
 
-                
+
                 // 여기서 시나리오 array ClassLibrary로 보내줘야해
             }
             else
@@ -294,7 +327,7 @@ namespace WpfApp
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -315,6 +348,24 @@ namespace WpfApp
         private void ShootBtn_Click(object sender, RoutedEventArgs e)
         {
             ChangeImage1();
+            int dotSize = 7; // 점의 크기 설정
+            double.TryParse(xpos.Text, out double startX);
+            double.TryParse(ypos.Text, out double startY);
+            double.TryParse(endxpos.Text, out double endX);
+            double.TryParse(endypos.Text, out double endY);
+            SolidColorBrush dotColor = Brushes.Orange; // 점의 색상을 진한 빨간색으로 설정
+            Ellipse redDot = new Ellipse // 새로운 원형 도형(점) 생성
+            {
+                Width = dotSize,
+                Height = dotSize,
+                Fill = dotColor,
+                Margin = new Thickness(startX - (dotSize / 2), startY - (dotSize / 2), 0, 0) // 점의 중심이 시작 좌표가 되도록 위치 조정
+            };
+            Map_.Children.Add(redDot); // Canvas에 점 추가
+
+            // 진한 빨간 점 이동
+            TimeSpan duration = TimeSpan.FromMilliseconds(500);
+            MoveDot(redDot, startX, startY, endX, endY, duration);
             //bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
             //bbyok.Play();
         }
@@ -328,7 +379,7 @@ namespace WpfApp
 
             // 선택된 값을 문자열로 가져옵니다.
             selectedValue = selectedItem.Content.ToString();
-            arrayList.Add(selectedValue);
+
 
         }
 
@@ -353,7 +404,7 @@ namespace WpfApp
 
         private void simulation_start_click(object sender, RoutedEventArgs e)
         {
-            // 선을 그리는 코드를 추가합니다.
+
             double.TryParse(startxpos.Text, out double startX);
             double.TryParse(startypos.Text, out double startY);
             double.TryParse(endxpos.Text, out double endX);
@@ -363,7 +414,7 @@ namespace WpfApp
             current_state.Foreground = Brushes.Yellow;
             current_state.Background = Brushes.Red;
             // 진한 빨간 점 추가
-            int dotSize = 5; // 점의 크기 설정
+            int dotSize = 7; // 점의 크기 설정
 
             SolidColorBrush dotColor = Brushes.DarkRed; // 점의 색상을 진한 빨간색으로 설정
             Ellipse redDot = new Ellipse // 새로운 원형 도형(점) 생성
@@ -378,7 +429,7 @@ namespace WpfApp
             // 진한 빨간 점 이동
             TimeSpan duration = TimeSpan.FromMilliseconds(500);
             MoveDot(redDot, startX, startY, endX, endY, duration);
-            
+
             // 배포 함수 사용
 
         }
@@ -396,10 +447,36 @@ namespace WpfApp
 
             image.Source = newImage;
         }
+        private void ChangeImage2(string newImagePath)
+        {
+            // Specify the new image file path
+            string newImagepath;
+            newImagepath = newImagePath;
+            //@"C:\Users\User\Desktop\project\son2.png";
+
+            // Set the image source
+            var newImage = new BitmapImage();
+            newImage.BeginInit();
+            newImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
+            newImage.CacheOption = BitmapCacheOption.OnLoad;
+            newImage.EndInit();
+
+            image.Source = newImage;
+        }
         private void pos_load_click(object sender, RoutedEventArgs e)
         {
             posLoadButtonClicked = true;
-           
+
+        }
+
+        private void type_select_Click(object sender, RoutedEventArgs e)
+        {
+            arrayList.Add(selectedValue);
+            if (selectedValue == "1.탄도탄")
+                speed_limit.Text = "제한속도: 1~10 마하";
+            else if (selectedValue == "2.항공기")
+                speed_limit.Text = "제한속도: 0.1~1 마하";
+            MessageBox.Show(selectedValue);
         }
 
         private void LoadImageFromLocalFolder()

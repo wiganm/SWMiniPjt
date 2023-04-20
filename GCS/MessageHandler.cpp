@@ -20,7 +20,7 @@ void MessageHandler::Listen()
 		{
 			case 3110: // 미사일 상태 메시지
 			{
-				cout << "미사일 상태메시지 수신" << endl;// 구현 부분
+				cout << "3110 : 미사일 상태메시지 수신" << endl;// 구현 부분
 				MssStateMsg mssStateMsg;
 				memcpy(&mssStateMsg, temp, sizeof(MssStateMsg));
 
@@ -32,6 +32,7 @@ void MessageHandler::Listen()
 			}
 			case 3120: // 미사일 포지션 메시지
 			{
+				cout << "3120 : 미사일 상태메시지 수신" << endl;
 				MssPositionMsg mssPositionMsg;
 				memcpy(&mssPositionMsg, temp, sizeof(MssPositionMsg));
 
@@ -46,6 +47,7 @@ void MessageHandler::Listen()
 			}
 			case 5101: // 공중위협 상태 메시지
 			{
+				cout << "5101 : 미사일 상태메시지 수신" << endl;
 				cout << "공중위협 상태 메시지" << endl;// 구현 부분
 				AtsStateMsg atsStateMsg;
 				memcpy(&atsStateMsg, temp, sizeof(AtsStateMsg));
@@ -58,7 +60,7 @@ void MessageHandler::Listen()
 			}
 			case 5110: // 공중위협 포지션 메시지
 			{
-				cout << "공중위협 포지션 메시지" << endl;// 구현 부분
+				cout << "5110 : 공중위협 포지션 메시지" << endl;// 구현 부분
 				AtsPositionMsg atsPosMsg;
 				memcpy(&atsPosMsg, temp, sizeof(AtsPositionMsg));
 
@@ -68,6 +70,7 @@ void MessageHandler::Listen()
 			}
 			default:
 			{
+				cout << "수신오류" << endl;
 				break;
 			}
 		}
