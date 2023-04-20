@@ -11,9 +11,50 @@ void MessageHandler::Listen()
 {
 	while (true)
 	{
-		string msg;
-		msg = udpClient->recv();
-		cout << msg << endl;
+		int messageId;
+		const char* temp = udpClient->recv();
+		memcpy(&messageId, temp, 4);
+
+		switch (messageId)
+		{
+		case 1301: // 시나리오
+		{
+			cout << "1301 : 수신" << endl;// 구현 부분
+			MssScenarioMsg mssScenarioMsg;
+			memcpy(&mssScenarioMsg, temp, sizeof(mssScenarioMsg));
+
+			cout << mssScenarioMsg.MssStartX << mssScenarioMsg.MssStartY << mssScenarioMsg.Velocity << endl;
+
+			// gui 전달
+			break;
+		}
+		case 1310: // 운용제어
+		{
+			cout << "1310 : 수신" << endl;
+			MssOpCommandMsg mssOpCommandMsg;
+			memcpy(&mssOpCommandMsg, temp, sizeof(MssOpCommandMsg));
+
+			cout << mssOpCommandMsg.MessageID << mssOpCommandMsg.Launch << endl;
+			// gui 연동
+			break;
+		}
+		case 1320: // 요격
+		{
+			cout << "1320 : 수신" << endl;
+			MssDirectionMsg mssDirectionMsg;
+			memcpy(&mssDirectionMsg, temp, sizeof(MssDirectionMsg));
+
+			cout << mssDirectionMsg.XDir << mssDirectionMsg.YDir << endl;
+
+			// gui 전달
+			break;
+		}
+		default:
+		{
+			cout << "수신오류" << endl;
+			break;
+		}
+		}
 	}
 }
 
