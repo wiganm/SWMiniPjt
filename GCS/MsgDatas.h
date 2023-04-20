@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #define DISTDIVIDE 5000
 
 struct AtsScenarioMsg { //공중위협 시나리오 메시지

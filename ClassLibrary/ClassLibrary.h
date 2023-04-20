@@ -1,10 +1,21 @@
 ﻿#pragma once
+#include <thread>
+#include <GCSClass.h>
+#include <MessageHandler.h>
 
-using namespace System;
 
-namespace ClassLibrary {
-	public ref class Class1
+namespace Wrapper
+{
+	public ref class GcsWrapper
 	{
-		// TODO: 여기에 이 클래스에 대한 메서드를 추가합니다.
+	private:
+		MessageHandler* messagehandler = new MessageHandler();
+	public:
+		void SendMssScenarioMsg()
+		{
+			messagehandler->SendMssScenarioMsg();
+			printf("tetewtwetew");
+		}
+
 	};
 }

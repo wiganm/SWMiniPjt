@@ -1,9 +1,8 @@
-#include <string>
-#include "UdpServer.h"
-#include "GCSClass.h"
 #pragma once
+#include "UdpServer.h"
+#include "MsgDatas.h"
+#include "GCSClass.h"
 
-using namespace std;
 
 class MessageHandler
 {
@@ -12,13 +11,15 @@ private:
 	double MssPositionY;
 	bool MssState;
 
+	ScenarioSetting* scenarioSetting = new ScenarioSetting();
+	OperationControl* operationControl = new OperationControl();
+
 	double AtsPositionX;
 	double AtsPositionY;
 	bool AtsState;
 	double AtsDestPosX;
 	double AtsDestPosY;
 
-	MissileCalculator missileCalculator;
 	UdpServer* udpServer;
 	void Listen();
 public:
@@ -27,8 +28,10 @@ public:
 	void ListenStart();
 	void SendMssOpMsg(bool opMsg);
 	void SendAtsOpMsg(bool opMsg);
-	void SendMssScenarioMsg(MssScenarioMsg mmsg);
-	void SendAtsScenarioMsg(AtsScenarioMsg amsg);
+	void SendMssScenarioMsg();
+	void SendAtsScenarioMsg();
 	void SendInterceptMsg(bool intermsg);
 	void SendMssDir(MssDirectionMsg dirmsg);
+
+
 };

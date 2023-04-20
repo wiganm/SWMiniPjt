@@ -16,6 +16,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Collections;
 
+using Wrapper;
+
+
 namespace WpfApp
 {
     /// <summary>
@@ -23,6 +26,7 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        GcsWrapper gcs; 
         public double startposx;
         public double startposy;
         public double endposx;
@@ -33,7 +37,8 @@ namespace WpfApp
         private string selectedValue;
         ArrayList arrayList = new ArrayList();
 
-        
+
+
         private List<Ellipse> dots = new List<Ellipse>();
         private bool endLoadButtonClicked = false;
         private bool startLoadButtonClicked = false;
@@ -52,6 +57,8 @@ namespace WpfApp
             DrawGrid(20);
 
             DataContext = this;
+
+            gcs = new GcsWrapper();
 
         }
         
@@ -254,6 +261,7 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
+
             if (double.TryParse(startxpos.Text, out double startX) &&
                 double.TryParse(startypos.Text, out double startY) &&
                 double.TryParse(endxpos.Text, out double endX) &&

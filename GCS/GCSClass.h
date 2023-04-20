@@ -1,5 +1,6 @@
 #pragma once
 #include "MsgDatas.h"
+// #include "MessageHandler.h"
 
 class ScenarioSetting
 {
@@ -17,12 +18,12 @@ private:
 
 class MissileCalculator { // 미사일 방향벡터 게산
 public:
-	void SetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY);
+	//MissileCalculator();
+	static MssDirectionMsg SetDirMss(double mssPosX, double mssPosY, double atsPosX, double atsPosY);
 	// 미사일 방향 세팅 함수
-	void SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist);
+	static bool SetInterceptSuccess(double mssPosX, double mssPosY, double atsPosX, double atsPosY, double atsDestPosX, double atsDestPosY, double interDist);
 	void SendSuccessMsg(bool success); // 구현해야함 통신사용 // 스테이트변경도 추가해서 전송
 private:
-	MssDirectionMsg mssDirectionMsg;
 	InterceptMsg interceptMsg;
 };
 
@@ -34,6 +35,9 @@ public:
 
 class OperationControl {
 public:
+	OperationControl();
+	~OperationControl();
+
 	void SetMssOpCommandMsg(double mssStartX, double mssStartY, double atsPosX, double atsPosY, bool launch); //발사 버튼 누를 때 사용
 	void LaunchMss();
 	void SetApsOpCommandMsg(bool command);
@@ -49,6 +53,7 @@ public:
 	MssDirectionMsg GetMssDirMsg();
 	MssPositionMsg GetMssPosMsg();
 	AtsPositionMsg GetAtsPosMsg();
+
 private:
 	MssOpCommandMsg mssOpCommandMsg;
 	MissileCalculator mssCalculator;
@@ -59,5 +64,3 @@ private:
 	MssPositionMsg mssPosMsg;
 	AtsPositionMsg atsPosMsg;
 };
-
-OperationControl opControl; // gui 전달 데이터 담고있는 객체
