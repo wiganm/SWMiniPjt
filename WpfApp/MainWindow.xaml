@@ -27,7 +27,7 @@
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="14,5,0,0" Background="#FF999997" Height="22" Width="97"><Run Text="유도탄"/><Run Text=" "/><Run Text="초기 좌표"/></TextBlock>
 
         </Grid>
-        <Grid Margin="7,50,473,35.8" Grid.RowSpan="2">
+        <Grid Margin="7,35,473.4,50.8" Grid.RowSpan="2">
 
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="311" Stroke="Black" VerticalAlignment="Top" Width="230"/>
             <Rectangle Fill="#FFB7B7B7" HorizontalAlignment="Left" Height="271" Margin="10,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="209"/>
@@ -80,6 +80,8 @@
                 </ItemsControl>
             </Canvas>
             <Image x:Name="image" HorizontalAlignment="Left" Height="367" Margin="657,0,-0.2,0" VerticalAlignment="Top" Width="564"  Stretch="Uniform" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="event_log" HorizontalAlignment="Left" Height="39" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Margin="-255,333,0,0"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="EventLog" VerticalAlignment="Top" Margin="-255,312,0,0"/>
 
         </Grid>
         <TextBlock x:Name="current_state" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="737,161,0,0" Height="27" Width="150" Foreground="#FF101DAB" OpacityMask="#FFF01C1C" Background="#FF17A337" Text="미 운용 중" FontSize="18" TextAlignment="Center" Grid.ColumnSpan="2"/>

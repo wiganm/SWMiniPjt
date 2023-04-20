@@ -72,12 +72,12 @@ bool MissileCalculator::SetInterceptSuccess(double mssPosX, double mssPosY, doub
 	double distance = sqrt(pow(atsPosX - mssPosX, 2) + pow(atsPosY - mssPosY, 2));
 	if (distance <= interDist) {
 		//interceptMsg.SuccessDef = true;
-		return true;
+		return 1;
 	}
 	double destAtsDist = sqrt(pow(atsDestPosX - atsPosX, 2) + pow(atsDestPosY - atsPosY, 2));
 	if (destAtsDist <= 5) {
 		//interceptMsg.SuccessDef = false;
-		return false;
+		return 0;
 	}
 }
 

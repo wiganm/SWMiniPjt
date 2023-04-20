@@ -15,11 +15,12 @@ int main()
 
 	while (true)
 	{
-		if(mssSimulator.GetState())
-		{
+		/*if(mssSimulator.GetState())
+		{*/
 			messageHandler->SendMssPosition();
+		//}
 			this_thread::sleep_for(chrono::milliseconds(500));
-		}
+		
 	}
 
 	cout << "Mss Simulation을 종료합니다." << endl;
