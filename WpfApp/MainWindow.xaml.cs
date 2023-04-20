@@ -35,8 +35,9 @@ namespace WpfApp
         public double posy;
         public double x, y;
         private string selectedValue;
-        ArrayList arrayList = new ArrayList();
+        //ArrayList arrayList = new ArrayList();
         ArrayList logarrayList = new ArrayList();
+        object[] scenario_array = new object[8];
         private Ellipse myEllipse = new Ellipse();
         private Ellipse myEllipse2 = new Ellipse();
         private List<Ellipse> dots = new List<Ellipse>();
@@ -203,8 +204,10 @@ namespace WpfApp
                 posy = cursorPosition.Y;
                 xpos.Text = $"{posx}";
                 ypos.Text = $"{posy}";
-                arrayList.Add(posx);
-                arrayList.Add(posy);
+                //arrayList.Add(posx);
+                //arrayList.Add(posy);
+                scenario_array[2] = posx;
+                scenario_array[3] = posy;
                 int scope = 100;
                 AddDot(scope, x, y, Color.FromArgb(128, 135, 206, 250));
 
@@ -222,8 +225,10 @@ namespace WpfApp
                     startposy = cursorPosition.Y;
                     startxpos.Text = $"{startposx}";
                     startypos.Text = $"{startposy}";
-                    arrayList.Add(startposx);
-                    arrayList.Add(startposy);
+                    //arrayList.Add(startposx);
+                    //arrayList.Add(startposy);
+                    scenario_array[4] = startposx;
+                    scenario_array[5] = startposy;
                     // 점을 그리는 코드를 추가합니다.
 
                 }
@@ -238,8 +243,10 @@ namespace WpfApp
                     endposy = cursorPosition.Y;
                     endxpos.Text = $"{endposx}";
                     endypos.Text = $"{endposy}";
-                    arrayList.Add(endposx);
-                    arrayList.Add(endposy);
+                    //arrayList.Add(endposx);
+                    //arrayList.Add(endposy);
+                    scenario_array[6] = endposx;
+                    scenario_array[7] = endposy;
 
                 }
             }
@@ -289,7 +296,8 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
-            gcs.SendScenarioMsg((int)arrayList[0], (double)arrayList[1], (double)arrayList[2], (double)arrayList[3], (double)arrayList[4], (double)arrayList[5], (double)arrayList[6], (double)arrayList[7]);
+            gcs.SendScenarioMsg((int)scenario_array[0], (double)scenario_array[1], (double)scenario_array[2], (double)scenario_array[3], (double)scenario_array[4], (double)scenario_array[5], (double)scenario_array[6], (double)scenario_array[7]);
+            //gcs.SendScenarioMsg((int)arrayList[0], (double)arrayList[1], (double)arrayList[2], (double)arrayList[3], (double)arrayList[4], (double)arrayList[5], (double)arrayList[6], (double)arrayList[7]);
             if (double.TryParse(startxpos.Text, out double startX) &&
                 double.TryParse(startypos.Text, out double startY) &&
                 double.TryParse(endxpos.Text, out double endX) &&
@@ -391,7 +399,8 @@ namespace WpfApp
             // TextBox에서 입력된 값을 가져옵니다.
             double inputspeed;
             inputspeed = Double.Parse(speed.Text);
-            arrayList.Add(inputspeed);
+            //arrayList.Add(inputspeed);
+            scenario_array[1] = inputspeed;
 
         }
 
@@ -474,14 +483,16 @@ namespace WpfApp
             if (selectedValue == "1.탄도탄")
             { 
                 speed_limit.Text = "제한속도: 1~10 마하";
-                arrayList.Add(1);
+                //arrayList.Add(1);
+                scenario_array[0] = 1;
             }
             else if (selectedValue == "2.항공기")
             {     
                 speed_limit.Text = "제한속도: 0.1~1 마하";
-                arrayList.Add(2);
+                //arrayList.Add(2);
+                scenario_array[0] = 2;
             }
-            MessageBox.Show(selectedValue);
+           
         }
 
         private void LoadImageFromLocalFolder()
