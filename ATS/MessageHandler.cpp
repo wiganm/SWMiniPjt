@@ -7,9 +7,14 @@ void MessageHandler::Listen()
 {
 	while (true)
 	{
+
 		int messageId;
 		const char* temp = udpClient->recv();
 		memcpy(&messageId, temp, 4);
+		if (messageId == 1520 && !atsSimulation->GetState())
+		{
+			continue;
+		}
 		switch (messageId)
 		{
 		case 1501: // 공중위협 시나리오 메시지
@@ -23,7 +28,10 @@ void MessageHandler::Listen()
 		{
 			memcpy(&atsOpCommandMsg, temp, sizeof(AtsOpCommandMsg));
 			cout << "공중위협 기동 명령 수신" << endl;
-			atsSimulation->Start();
+			if (atsOpCommandMsg.AstCommand == true)
+				atsSimulation->Start();
+			else
+				atsSimulation->Stop();
 			break;
 		}
 		case 1520: // 요격 이벤트

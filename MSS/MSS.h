@@ -11,13 +11,15 @@ private:
 	double currentX;
 	double currentY;
 
-	int SimulationState;
+	bool state;
 
 public:
 	void Initialize(double, double);
-	void Start(bool);
+	void Start();
+	void Stop();
 	void Move(double, double);
 	void UpdateSimulationState();
 	double GetX();
 	double GetY();
+	bool GetState();
 };

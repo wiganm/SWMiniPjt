@@ -11,8 +11,6 @@ int main()
 	MessageHandler* messageHandler = new MessageHandler(atsSimulation);
 	messageHandler->ListenStart();
 
-
-
 	while (true)
 	{
 		if(atsSimulation->GetState()) // 시작하면 state가 true로 바뀜

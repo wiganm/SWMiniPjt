@@ -397,7 +397,7 @@ namespace WpfApp
 
         private void simulation_start_click(object sender, RoutedEventArgs e)
         {
-
+            gcs.Start();
             double.TryParse(startxpos.Text, out double startX);
             double.TryParse(startypos.Text, out double startY);
             double.TryParse(endxpos.Text, out double endX);

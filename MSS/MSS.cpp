@@ -16,12 +16,14 @@ void MssSimulator::Initialize(double MssStartX, double MssStartY) {
 	double currentY = InitY;
 }
 
-void MssSimulator::Start(bool SimulationState) {
+void MssSimulator::Start() {
 	//Initialize();
-	if (SimulationState)
-		cout << "Mss Simulator get Started." << endl;
-	else
-		cout << "Mss Simulator get Stopped." << endl;
+	state = true;
+}
+
+void MssSimulator::Stop() {
+	//Initialize();
+	state = false;
 }
 
 
@@ -33,10 +35,10 @@ void MssSimulator::Move(double vectorX, double vectorY) {
 
 
 void MssSimulator::UpdateSimulationState() {
-	if (SimulationState == 0) {
+	if (state == 0) {
 
 	}
-	if (SimulationState == 1) {
+	if (state == 1) {
 
 	}
 }
@@ -49,4 +51,9 @@ double MssSimulator::GetX()
 double MssSimulator::GetY()
 {
 	return currentY;
+}
+
+bool MssSimulator::GetState()
+{
+	return state;
 }

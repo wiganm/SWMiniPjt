@@ -14,7 +14,10 @@ void MessageHandler::Listen()
 		int messageId;
 		const char* temp = udpClient->recv();
 		memcpy(&messageId, temp, 4);
-
+		if (messageId == 1320 && !mssSimulator.GetState())
+		{
+			continue;
+		}
 		switch (messageId)
 		{
 		case 1301: // 시나리오
@@ -34,6 +37,10 @@ void MessageHandler::Listen()
 			MssOpCommandMsg mssOpCommandMsg;
 			memcpy(&mssOpCommandMsg, temp, sizeof(MssOpCommandMsg));
 
+			if (mssOpCommandMsg.Launch == true)
+				mssSimulator.Start();
+			else
+				mssSimulator.Stop();
 			cout << mssOpCommandMsg.MessageID << mssOpCommandMsg.Launch << endl;
 			// gui 연동
 			break;
@@ -79,4 +86,15 @@ void MessageHandler::SendMssPosition()
 	memcpy(buf, &pos, sizeof(pos));
 
 	udpClient->send(buf, sizeof(MssPositionMsg));
+}
+
+void MessageHandler::SendMssState()
+{
+	char buf[1024] = { 0, };
+	MssStateMsg msg;
+	msg.MssState = mssSimulator.GetState();
+
+	memcpy(buf, &msg, sizeof(MssStateMsg));
+
+	udpClient->send(buf, sizeof(MssStateMsg));
 }

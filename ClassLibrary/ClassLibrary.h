@@ -25,27 +25,18 @@ namespace Wrapper
 			messagehandler->SendAtsScenarioMsg();
 		}
 
-		// mss
-		void StartMss()
+		void Start()
 		{
 			messagehandler->SendMssOpMsg(true);
+			messagehandler->SendAtsOpMsg(true);
 		}
+		
 		void StopMss()
 		{
 			messagehandler->SendMssOpMsg(false);
-		}
-
-		
-		// Ats
-
-		void StartAts()
-		{
-			messagehandler->SendAtsOpMsg(true);
-		}
-		void StopAts()
-		{
 			messagehandler->SendAtsOpMsg(false);
 		}
+
 
 	};
 }

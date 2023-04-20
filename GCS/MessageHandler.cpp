@@ -68,11 +68,6 @@ void MessageHandler::Listen()
 				operationControl->SetAtsPosMsg(atsPosMsg);
 				break;
 			}
-			default:
-			{
-				cout << "수신오류" << endl;
-				break;
-			}
 		}
 	}
 }
