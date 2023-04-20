@@ -1,14 +1,2 @@
 ﻿  MessageHandler.cpp
-<<<<<<< HEAD
   MSS.vcxproj -> C:\Users\User\source\repos\MiniProject\Debug\MSS.exe
-=======
-C:\Users\User\Desktop\project\MSS\MessageHandler.cpp(21,1): error C2511: 'MessageHandler::MessageHandler(void)': 오버로드된 멤버 함수가 'MessageHandler'에 없습니다.
-C:\Users\User\Desktop\project\MSS\MessageHandler.h(6): message : 'MessageHandler' 선언을 참조하십시오.
-C:\Users\User\Desktop\project\MSS\MessageHandler.cpp(25,2): error C2597: 비정적 멤버 'MessageHandler::udpClient'에 대한 참조가 잘못되었습니다.
-C:\Users\User\Desktop\project\MSS\MessageHandler.h(9): message : 'MessageHandler::udpClient' 선언을 참조하십시오.
-C:\Users\User\Desktop\project\MSS\MessageHandler.cpp(35,1): error C2511: 'void MessageHandler::SendMssPosition(double,double)': 오버로드된 멤버 함수가 'MessageHandler'에 없습니다.
-C:\Users\User\Desktop\project\MSS\MessageHandler.h(6): message : 'MessageHandler' 선언을 참조하십시오.
-  UdpClient.cpp
-C:\Users\User\Desktop\project\MSS\UdpClient.cpp(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'udpclient.h': No such file or directory
-  코드를 생성하고 있습니다...
->>>>>>> ba8e90bbfe10f7f44870b7e2adf6ea3adab21f82

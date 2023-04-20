@@ -19,12 +19,12 @@ private:
 	AtsOpCommandMsg atsOpCommandMsg;
 	InterceptMsg interceptMsg;
 	AtsStateMsg atsStateMsg;
-	AtsPositionMsg atsPositionMsg;
+	//AtsPositionMsg atsPositionMsg;
 
 	//시뮬레이션 구조체
-	AtsSimulation atsSimulation;
+	AtsSimulation* atsSimulation;
 public:
-	MessageHandler();
+	MessageHandler(AtsSimulation* atsSim);
 	//~MessageHandler();
 	void ListenStart();
 	void SendAtsPosition();

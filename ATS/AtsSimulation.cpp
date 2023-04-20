@@ -1,6 +1,6 @@
 #include "pch.h"
 
-void AtsSimulation::Start(AtsScenarioMsg* atsScenarioMsg){ // 시나리오를 입력 받음
+void AtsSimulation::ScenarioSetting(AtsScenarioMsg* atsScenarioMsg){ // 시나리오를 입력 받음
 	time = 0; // 시작과 동시에 time은 0으로 초기화
 	startX = atsScenarioMsg->AtsStartX; //편의성을 위해 시나리오의 시작 위치 X좌표 저장
 	startY = atsScenarioMsg->AtsStartY; //편의성을 위해 시나리오의 시작 위치 Y좌표 저장
@@ -11,6 +11,17 @@ void AtsSimulation::Start(AtsScenarioMsg* atsScenarioMsg){ // 시나리오를 입력 받
 	unitVectorX = distanceAxisX / distance; // X좌표 단위벡터
 	unitVectorY = distanceAxisY / distance; // Y좌표 단위벡터
 	velocity = atsScenarioMsg->Velocity; // 편의성을 위해 시나리오의 속도 저장
+
+	cout << "----- 시나리오 정보 수신 -----" << endl;
+	cout << "속도 : " << atsScenarioMsg->Velocity << " / " << "타입 : " << atsScenarioMsg->atsType << endl;
+	cout << "시작위치 : " << atsScenarioMsg->AtsStartX << ", " << atsScenarioMsg->AtsStartY << endl;
+	cout << "종료위치 : " << atsScenarioMsg->AtsDestiationX << ", " << atsScenarioMsg->AtsDestiationY << endl;
+	
+}
+
+void AtsSimulation::Start()
+{
+	state = true;
 }
 
 void AtsSimulation::Stop() {
@@ -27,8 +38,23 @@ void AtsSimulation::Stop(AtsScenarioMsg *atsScenarioMsg, AtsPositionMsg *atsPosi
 }
 */
 
-void AtsSimulation::UpdateAtsPostion(AtsPositionMsg* atsPositionMsg) { // 지도 축척비를 고려해야 할지?
-	atsPositionMsg->X_AstLoc = startX + unitVectorX * time * velocity;
-	atsPositionMsg->Y_AstLoc = startY + unitVectorY * time * velocity;
+void AtsSimulation::UpdateAtsPostion() { // 지도 축척비를 고려해야 할지?
+	this->atsPositionMsg.X_AstLoc = startX + unitVectorX * time * velocity * 0.5;
+	this->atsPositionMsg.Y_AstLoc = startY + unitVectorY * time * velocity * 0.5;
 	time += 1;
+}
+
+AtsSimulation::AtsSimulation()
+{
+
+}
+
+bool AtsSimulation::GetState()
+{
+	return state;
+}
+
+AtsPositionMsg AtsSimulation::GetPos()
+{
+	return atsPositionMsg;
 }

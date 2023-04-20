@@ -4,10 +4,14 @@
 
 class AtsSimulation {
 public:
-	void Start(AtsScenarioMsg* atsScenarioMsg);
+	void ScenarioSetting(AtsScenarioMsg* atsScenarioMsg);
+	void Start();
 	void Stop();
 	// void Stop(AtsScenarioMsg *atsScenarioMsg, AtsPositionMsg *atsPositionMsg, InterceptMsg *interceptMsg);
-	void UpdateAtsPostion(AtsPositionMsg* atsPositionMsg);
+	void UpdateAtsPostion();
+	AtsSimulation();
+	bool GetState();
+	AtsPositionMsg GetPos();
 private:
 	int time;
 	double startX;
@@ -15,4 +19,6 @@ private:
 	double velocity;
 	double unitVectorX;
 	double unitVectorY;
+	bool state = false;
+	AtsPositionMsg atsPositionMsg;
 };

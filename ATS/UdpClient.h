@@ -19,6 +19,6 @@ private:
 public:
     UdpClient(const string ip, int client_port, int server_port);
     ~UdpClient();
-    void send(const char* message);
+    void send(const char* message, int size);
     char* recv();
 };

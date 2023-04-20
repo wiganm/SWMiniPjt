@@ -11,7 +11,7 @@ private:
 	double MssPositionY;
 	bool MssState;
 
-	ScenarioSetting* scenarioSetting = new ScenarioSetting();
+	
 	OperationControl* operationControl = new OperationControl();
 
 	double AtsPositionX;
@@ -32,6 +32,6 @@ public:
 	void SendAtsScenarioMsg();
 	void SendInterceptMsg(bool intermsg);
 	void SendMssDir(MssDirectionMsg dirmsg);
-
+	ScenarioSetting* scenarioSetting = new ScenarioSetting();
 
 };

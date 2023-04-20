@@ -16,10 +16,35 @@ namespace Wrapper
 		void UdpStart() {
 			messagehandler->ListenStart();
 		}
-		void SendMssScenarioMsg()
+
+		void SendScenarioMsg(int ats, double atsVel, double mssX, double mssY, double atsStartX, double atsStartY, double atsDesX, double atsDesY)
 		{
+			messagehandler->scenarioSetting->SetAtsScenarioMsg(atsStartX, atsStartY, atsDesX, atsDesY, atsVel, ats);
+			messagehandler->scenarioSetting->SetMssScenarioMsg(mssX, mssY);
 			messagehandler->SendMssScenarioMsg();
-			printf("ggsdg");
+			messagehandler->SendAtsScenarioMsg();
+		}
+
+		// mss
+		void StartMss()
+		{
+			messagehandler->SendMssOpMsg(true);
+		}
+		void StopMss()
+		{
+			messagehandler->SendMssOpMsg(false);
+		}
+
+		
+		// Ats
+
+		void StartAts()
+		{
+			messagehandler->SendAtsOpMsg(true);
+		}
+		void StopAts()
+		{
+			messagehandler->SendAtsOpMsg(false);
 		}
 
 	};

@@ -206,9 +206,6 @@ namespace WpfApp
                 int scope = 100;
                 AddDot(scope, x, y, Color.FromArgb(128, 135, 206, 250));
 
-
-
-
             }
             else
             {
@@ -244,10 +241,6 @@ namespace WpfApp
 
                 }
             }
-
-
-
-
 
         }
 
@@ -294,7 +287,7 @@ namespace WpfApp
 
         private void confirm_scenario_click(object sender, RoutedEventArgs e)
         {
-            gcs.SendMssScenarioMsg();
+            gcs.SendScenarioMsg((int)arrayList[0], (double)arrayList[1], (double)arrayList[2], (double)arrayList[3], (double)arrayList[4], (double)arrayList[5], (double)arrayList[6], (double)arrayList[7]);
             if (double.TryParse(startxpos.Text, out double startX) &&
                 double.TryParse(startypos.Text, out double startY) &&
                 double.TryParse(endxpos.Text, out double endX) &&
@@ -471,11 +464,16 @@ namespace WpfApp
 
         private void type_select_Click(object sender, RoutedEventArgs e)
         {
-            arrayList.Add(selectedValue);
             if (selectedValue == "1.탄도탄")
+            { 
                 speed_limit.Text = "제한속도: 1~10 마하";
+                arrayList.Add(1);
+            }
             else if (selectedValue == "2.항공기")
+            {     
                 speed_limit.Text = "제한속도: 0.1~1 마하";
+                arrayList.Add(2);
+            }
             MessageBox.Show(selectedValue);
         }
 
