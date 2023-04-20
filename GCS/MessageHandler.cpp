@@ -41,10 +41,15 @@ void MessageHandler::Listen()
 				
 				int result = MissileCalculator::SetInterceptSuccess(MssPositionX, MssPositionY, AtsPositionX, AtsPositionY, AtsDestPosX, AtsDestPosY, 5);
 				SendInterceptMsg(result); // 요격 상태 전송
+				
+				Warning warn;
+				BWarning = warn.LaunchOk(MssStartPositionX, MssStartPositionY, AtsPositionX, AtsPositionY);
+
 				if (result == 1 || result == 2)
 				{
 					SendAtsOpMsg(false);
 					SendMssOpMsg(false);
+					interstella = result;
 				}
 				
 				
@@ -93,7 +98,7 @@ void MessageHandler::SendMssOpMsg(bool opMsg)
 	char buf[1024] = { 0, };
 	MssOpCommandMsg msg;
 	msg.Launch = opMsg;
-
+	
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
 }
@@ -111,6 +116,8 @@ void MessageHandler::SendMssScenarioMsg() {
 	char buf[1024] = { 0, };
 	MssScenarioMsg msg;
 	msg = scenarioSetting->GetMssScenarioMsg();
+	MssStartPositionX = msg.MssStartX;
+	MssStartPositionY = msg.MssStartY;
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg)); // enum으로 ip 넣어도될듯 현재 7777이 Mss, 8888이 Ats
@@ -143,4 +150,25 @@ void MessageHandler::SendMssDir(MssDirectionMsg dirmsg) {
 
 	memcpy(buf, &msg, sizeof(msg));
 	udpServer->send(7777, buf, sizeof(msg));
+}
+
+double MessageHandler::GetMssPositionX() {
+	return MssPositionX;
+}
+double MessageHandler::GetMssPositionY() {
+	return MssPositionY;
+}
+double MessageHandler::GetAtsPositionX() {
+	return AtsPositionX;
+}
+double MessageHandler::GetAtsPositionY() {
+	return AtsPositionY;
+}
+
+int MessageHandler::isEnd() {
+	return interstella;
+}
+
+bool MessageHandler::GetWarning() {
+	return BWarning;
 }

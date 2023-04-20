@@ -61,6 +61,67 @@ namespace WpfApp
 
         }
 
+        private async void AtsMoveDot(Ellipse dot, TimeSpan duration)
+        {
+
+            int dotSize = 5;
+
+            bool WarningOk = false;
+            while (true) // 각 단계별로 이동
+            {
+                if(!WarningOk)
+                {
+                    if (gcs.GetWarning())
+                    {
+                        WarningOk = true;
+                        ChangeImage2(@"C:\Users\User\Desktop\project\son5.png");
+                    }
+                }
+                if (gcs.isEnd() != 0)
+                    break;
+
+                double newX = gcs.GetAtsPosX(); // 새로운 X 좌표 계산
+                double newY = gcs.GetAtsPosY(); // 새로운 Y 좌표 계산
+
+                atsxpos.Text = newX.ToString();
+                atsypos.Text = newY.ToString();
+                dot.Margin = new Thickness(newX - (dotSize / 2), newY - (dotSize / 2), 0, 0); // 점 위치 업데이트
+
+                await Task.Delay(duration); // 지정한 시간만큼 대
+            }
+            //
+            await Task.Delay(50); // 지정한 시간만큼 대기
+            if (gcs.isEnd() == 1)
+            {
+                current_state.Text = "요격 성공";
+                ChangeImage2(@"C:\Users\User\Desktop\project\son3.png");
+            }
+            else
+            {
+                current_state.Text = "요격 실패";
+                ChangeImage2(@"C:\Users\User\Desktop\project\son4.png");
+            }
+            //dot.Margin = new Thickness(endX - (dotSize / 2), endY - (dotSize / 2), 0, 0); // 점의 최종 위치 설정
+        }
+        private async void MssMoveDot(Ellipse dot, TimeSpan duration)
+        {
+
+            int dotSize = 5;
+
+            while (true) // 각 단계별로 이동
+            {
+                if (gcs.isEnd() != 0)
+                    break;
+                double newX = gcs.GetMssPosX(); // 새로운 X 좌표 계산
+                double newY = gcs.GetMssPosY(); // 새로운 Y 좌표 계산
+                dot.Margin = new Thickness(newX - (dotSize / 2), newY - (dotSize / 2), 0, 0); // 점 위치 업데이트
+
+                await Task.Delay(duration); // 지정한 시간만큼 대기
+            }
+
+            //dot.Margin = new Thickness(endX - (dotSize / 2), endY - (dotSize / 2), 0, 0); // 점의 최종 위치 설정
+        }
+
         // 진한 빨간 점 이동 메소드 추가
         private async void MoveDot(Ellipse dot, double startX, double startY, double endX, double endY, TimeSpan duration)
         {
@@ -73,6 +134,8 @@ namespace WpfApp
 
             for (int i = 0; i < steps; i++) // 각 단계별로 이동
             {
+                double x = gcs.GetMssPosX();
+                Console.WriteLine(x);
                 double newX = startX + (stepX * i); // 새로운 X 좌표 계산
                 double newY = startY + (stepY * i); // 새로운 Y 좌표 계산
                 dot.Margin = new Thickness(newX - (dotSize / 2), newY - (dotSize / 2), 0, 0); // 점 위치 업데이트
@@ -372,7 +435,9 @@ namespace WpfApp
 
             // 진한 빨간 점 이동
             TimeSpan duration = TimeSpan.FromMilliseconds(500);
-            MoveDot(redDot, startX, startY, endX, endY, duration);
+            //MoveDot(redDot, startX, startY, endX, endY, duration);
+            MssMoveDot(redDot, duration);
+
             //bbyok.Open(new Uri(@"\bbyong.mp3", UriKind.Relative));
             //bbyok.Play();
         }
@@ -420,7 +485,7 @@ namespace WpfApp
 
             current_state.Text = "모의 중";
             logarrayList.Add("모의 시작");
-            event_log.Text = logarrayList[0].ToString() +", " +logarrayList[1].ToString();
+            event_log.Text = logarrayList[0].ToString() + ", " + logarrayList[1].ToString();
             current_state.Foreground = Brushes.Yellow;
             current_state.Background = Brushes.Red;
             // 진한 빨간 점 추가
@@ -438,7 +503,8 @@ namespace WpfApp
 
             // 진한 빨간 점 이동
             TimeSpan duration = TimeSpan.FromMilliseconds(500);
-            MoveDot(redDot, startX, startY, endX, endY, duration);
+            //MoveDot(redDot, startX, startY, endX, endY, duration);
+            AtsMoveDot(redDot, duration);
 
             // 배포 함수 사용
 
@@ -482,18 +548,18 @@ namespace WpfApp
         private void type_select_Click(object sender, RoutedEventArgs e)
         {
             if (selectedValue == "1.탄도탄")
-            { 
+            {
                 speed_limit.Text = "제한속도: 1~10 마하";
                 //arrayList.Add(1);
                 scenario_array[0] = 1;
             }
             else if (selectedValue == "2.항공기")
-            {     
+            {
                 speed_limit.Text = "제한속도: 0.1~1 마하";
                 //arrayList.Add(2);
                 scenario_array[0] = 2;
             }
-           
+
         }
 
         private void LoadImageFromLocalFolder()

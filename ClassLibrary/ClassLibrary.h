@@ -50,6 +50,23 @@ namespace Wrapper
 			messagehandler->SendAtsOpMsg(false);
 		}
 
-
+		double GetMssPosX() {
+			return messagehandler->GetMssPositionX();
+		}
+		double GetMssPosY() {
+			return messagehandler->GetMssPositionY();
+		}
+		double GetAtsPosX() {
+			return messagehandler->GetAtsPositionX();
+		}
+		double GetAtsPosY() {
+			return messagehandler->GetAtsPositionY();
+		}
+		int isEnd() {
+			return messagehandler->isEnd();
+		}
+		bool GetWarning() {
+			return messagehandler->GetWarning();
+		}
 	};
 }

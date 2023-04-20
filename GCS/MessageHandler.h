@@ -11,6 +11,10 @@ private:
 	double MssPositionY;
 	bool MssState;
 
+	double MssStartPositionX;
+	double MssStartPositionY;
+
+	bool BWarning;
 	
 	OperationControl* operationControl = new OperationControl();
 
@@ -19,6 +23,8 @@ private:
 	bool AtsState;
 	double AtsDestPosX;
 	double AtsDestPosY;
+
+	int interstella = 0;
 
 	UdpServer* udpServer;
 	void Listen();
@@ -34,4 +40,12 @@ public:
 	void SendMssDir(MssDirectionMsg dirmsg);
 	ScenarioSetting* scenarioSetting = new ScenarioSetting();
 
+	double GetMssPositionX();
+	double GetMssPositionY();
+	double GetAtsPositionX();
+	double GetAtsPositionY();
+
+	bool GetWarning();
+
+	int isEnd();
 };
