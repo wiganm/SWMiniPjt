@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MsgDatas.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="MessageHandler.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -24,10 +27,7 @@
     <ClInclude Include="AtsSimulation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\GCS\pch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MsgDatas.h">
+    <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="AtsSimulation.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\GCS\pch.cpp">
+    <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

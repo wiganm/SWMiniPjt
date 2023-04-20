@@ -1,8 +1,10 @@
+#pragma once
+#include <thread>
 #include <cstring>
 #include "MsgDatas.h"
 #include "UdpClient.h"
 #include "AtsSimulation.h"
-#pragma once
+
 
 
 class MessageHandler

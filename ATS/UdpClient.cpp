@@ -1,13 +1,6 @@
-#include <iostream>
-#include <string>
-#include <winsock2.h>
-#include <WS2tcpip.h>
-#include "pch.h"
-#include "UdpClient.h"
-#include "MsgDatas.h"
 #pragma comment(lib, "ws2_32.lib")
+#include "pch.h"
 
-using namespace std;
 
 
 UdpClient::UdpClient(const string ip, int client_port, int server_port) {

@@ -1,8 +1,6 @@
-#include <thread>
-#include <iostream>
 #include "pch.h"
-#include "MessageHandler.h"
-#include "MsgDatas.h"
+
+using namespace std;
 
 
 void MessageHandler::Listen()
